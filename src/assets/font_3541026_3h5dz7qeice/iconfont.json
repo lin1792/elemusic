@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "5207131",
+      "name": "消息",
+      "font_class": "xiaoxi",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "22632606",
+      "name": "下一个",
+      "font_class": "xiayige",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "22632621",
+      "name": "上一个",
+      "font_class": "shangyige",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
       "icon_id": "7592579",
       "name": "24gf-headphones",
       "font_class": "24gf-headphones",

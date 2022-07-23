@@ -3,6 +3,7 @@ import CommonLeftNav from './common-leftNav.vue'
 import CommonTopNav from './common-topNav.vue'
 import CommonBottomplayer from './common-bottomplayer.vue'
 import CommonMain from './common-main.vue'
+import '@/assets/font_3541026_3h5dz7qeice/iconfont.css'
 
 </script>
 
@@ -29,16 +30,10 @@ body{
 .panel{
   display: flex;
   .leftpanel{
-    // position: relative;
 width: 307.2px;
 height: 100vh;
-// .left{
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-// }
-  }
-}
+
+}}
 .bottom{
   position: fixed;
 bottom: 0;

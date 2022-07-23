@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import '@/assets/font_3541026_rqeq4fvo72/iconfont.css'
 </script>
 
 <template>
-<div class="fr">
+<div class="main">
+   <h1>
+  饿了音乐
+</h1>
 <el-scrollbar class="text">
     <p class="fb">在线音乐</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p>
+    <p class="scrollbar-demo-item lianjie active"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p>
     <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-yinle"></i>&nbsp;音乐馆</p>
     <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-shipin"></i>&nbsp;视频</p>
     <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-diantai"></i>&nbsp;电台</p>
@@ -25,12 +27,30 @@ import '@/assets/font_3541026_rqeq4fvo72/iconfont.css'
 @bottomcolor:#334055;
 @hovercolor:#409eff;
 @mockcolor:#ecf5ff;
-.fr{
+.main{
+  position: relative;
   width: 307.2px;
 height: 100vh;
 padding-left: 20px;
 background-color: #f9fafb;
 overflow: hidden;
+h1{
+  position: absolute;
+  top: 0;
+  left: 20px;
+  // width: 116px;
+width: 300px;
+  height:  50px;
+  margin-top: 15px;
+  padding-left: 100px;
+  // background-color: #409eff;
+background-image: url(@/assets/logo.png);
+background-size: contain;
+background-repeat:no-repeat;
+font-size: 45px;
+line-height: 45px;
+color: #0091ea;
+}
 .text{
 margin-top: 76.78px;
 width: 93%;
@@ -60,6 +80,10 @@ width: 93%;
 .lianjie,.iconfont{
   font-size: 25px;
 }
+.active{
+    background-color: @mockcolor;
+  color: @hovercolor;
+  }
 .lianjie:hover{
   background-color: @mockcolor;
   color: @hovercolor;
