@@ -8,8 +8,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "element-plus": "^2.2.9",
     "pinia": "^2.0.0-rc.10",
+    "ts-loader": "^9.3.1",
     "vue": "^3.2.25",
     "vue-router": "^4.1.2"
   },

@@ -8,16 +8,16 @@
 </h1>
 <el-scrollbar class="text">
     <p class="fb">在线音乐</p>
-    <p class="scrollbar-demo-item lianjie active"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-yinle"></i>&nbsp;音乐馆</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-shipin"></i>&nbsp;视频</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-diantai"></i>&nbsp;电台</p>
+    <router-link to="/elerecommond" ><p class="scrollbar-demo-item lianjie active"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p></router-link>
+    <router-link to="/eleclub"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-yinle"></i>&nbsp;音乐馆</p></router-link>
+    <router-link to="/elevideo"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-shipin"></i>&nbsp;视频</p></router-link>
+    <router-link to="/elediantai"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-diantai"></i>&nbsp;电台</p></router-link>
     <p class="scrollbar-demo-item ct"></p>
     <p class="fb">我的音乐</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xihuan-xianxing"></i>&nbsp;我喜欢</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-bendi1x"></i>&nbsp;本地歌曲</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xiazai-wenjianxiazai-07"></i>&nbsp;下载歌曲</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-zuijinyuedu"></i>&nbsp;最近播放</p>
+    <router-link to="/mylove"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xihuan-xianxing"></i>&nbsp;我喜欢</p></router-link>
+    <router-link to="/local"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-bendi1x"></i>&nbsp;本地歌曲</p></router-link>
+    <router-link to="/download"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xiazai-wenjianxiazai-07"></i>&nbsp;下载歌曲</p></router-link>
+    <router-link to="/recentplay"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-zuijinyuedu"></i>&nbsp;最近播放</p></router-link>
     <p class="scrollbar-demo-item end"></p>
   </el-scrollbar>
 </div>
@@ -54,6 +54,11 @@ color: #0091ea;
 .text{
 margin-top: 76.78px;
 width: 93%;
+.fb{
+  border: 0;
+  background:none;
+  color: @bottomcolor;
+}
 .end{
   height: 65px;
 }

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import CommonAll from './components/common/common-all.vue'
+import ElemusicEnd from './components/elemusic/elemusic-end.vue'
 
 </script>
 
 <template>
-<CommonAll />
+    <elemusic-end />
 </template>
 
 <style lang="less" scoped>

@@ -25,10 +25,12 @@ const input2 = ref('')
           </div>
         </div>
         <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 1</el-dropdown-item>
-            <el-dropdown-item>Action 1</el-dropdown-item>
+          <el-dropdown-menu class="search-dropdown">
+            <div class="title">热门搜索</div>
+            <el-dropdown-item class="list" v-for="item in 10" :key="item">
+                <div class="info">{{item}}、许嵩</div>
+            <div class="num">65万</div>
+            </el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -108,5 +110,24 @@ height: 40px;
     }
   }
 }
+}
+</style>
+<style lang="less">
+    .search-dropdown{
+  width: 250px;
+  height: 400px;
+  .title{
+padding:4px 15px 8px 15px;
+font-size: 15px;
+  }
+    .list{
+    display: flex;
+    justify-content: space-between;
+    color: aqua;
+  }
+  .list:hover{
+    font-size: 20px;
+  }
+
 }
 </style>
