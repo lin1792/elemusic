@@ -38,6 +38,7 @@ declare module '@vue/runtime-core' {
     Recommendation: typeof import('./src/components/body/recommendation.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    TiaoShi: typeof import('./src/components/body/tiao-shi.vue')['default']
   }
   export interface ComponentCustomProperties {
     vInfiniteScroll: typeof import('element-plus/es')['ElInfiniteScroll']

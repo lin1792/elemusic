@@ -4,7 +4,6 @@ import CommonTopNav from '@/components/common/common-topNav.vue'
 import CommonBottomplayer from '@/components/common/common-bottomplayer.vue'
 import CommonMain from '@/components/common/common-main.vue'
 import '@/assets/font_3541026_3h5dz7qeice/iconfont.css'
-
 </script>
 
 <template>
