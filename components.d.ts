@@ -7,6 +7,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ArtistDetail: typeof import('./src/components/body/artist-Detail.vue')['default']
     CommonAll: typeof import('./src/components/common/common-all.vue')['default']
     CommonBottomplayer: typeof import('./src/components/common/common-bottomplayer.vue')['default']
     CommonLeftNav: typeof import('./src/components/common/common-leftNav.vue')['default']
@@ -38,6 +39,7 @@ declare module '@vue/runtime-core' {
     Recommendation: typeof import('./src/components/body/recommendation.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SearchSuggest: typeof import('./src/components/small-panel/search-suggest.vue')['default']
     TiaoShi: typeof import('./src/components/body/tiao-shi.vue')['default']
   }
   export interface ComponentCustomProperties {

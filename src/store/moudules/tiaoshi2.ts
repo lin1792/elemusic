@@ -1,6 +1,8 @@
+/* eslint-disable prefer-destructuring */
 import { defineStore } from 'pinia'
-import { useDetail } from '@/utils/api'
-import { id } from 'element-plus/es/locale'
+import { useTiaoshi } from '@/utils/api'
+import { Key } from '@element-plus/icons-vue'
+import { keys } from 'lodash'
 
 export const tiaoshi2Store = defineStore({
   id: 'tiaoshi2',
@@ -17,9 +19,8 @@ export const tiaoshi2Store = defineStore({
     }
   },
   actions: {
-    dada() {
-      useDetail()
-
+    tiaoshi() {
+      useTiaoshi()
     }
   }
 })

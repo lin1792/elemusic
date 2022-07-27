@@ -1,9 +1,15 @@
 // import { tiaoshiStore } from './moudules/tiaoshi'
 import { tiaoshi2Store } from './moudules/tiaoshi2'
+import { useSeachStore } from '@/store/moudules/search'
+import { usePlayerStore, userPlayerInit } from './moudules/player'
+import { useActiveStore } from './moudules/left'
 
 export default function useStore() {
   return {
-    // tiaoshi: tiaoshiStore(),
-    tiaoshi2: tiaoshi2Store()
+    tiaoshi2: tiaoshi2Store(),
+    search: useSeachStore(),
+    player: usePlayerStore(),
+    playerInit: userPlayerInit(),
+    leftActive: useActiveStore()
   }
 }

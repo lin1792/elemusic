@@ -7,10 +7,10 @@
 <script setup lang="ts">
 import useStore from '@/store/index'
 import { storeToRefs } from 'pinia'
-const { tiaoshi2 } = useStore()
-const { dada } = tiaoshi2
+const { tiaoshi2, search } = useStore()
+const { tiaoshi } = tiaoshi2
 const { list, getlist } = storeToRefs(tiaoshi2)
-const getWangyi = dada
-console.log(list)
+
+const getWangyi = tiaoshi
 
 </script>

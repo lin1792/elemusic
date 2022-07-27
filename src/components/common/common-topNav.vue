@@ -1,7 +1,18 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Search } from '@element-plus/icons-vue'
-const input2 = ref('')
+import useStore from '@/store/index'
+import { storeToRefs } from 'pinia'
+import SearchSuggest from '../small-panel/search-suggest.vue'
+const clickHot = (text: string) => {
+  searchkeyword.value = text
+}
+const clearinput = () => {
+  searchkeyword.value = ''
+}
+const { search } = useStore()
+const { hotsearch } = search
+const { hotData, searchkeyword, showHot } = storeToRefs(search)
+hotsearch()
 </script>
 
 <template>
@@ -17,20 +28,26 @@ const input2 = ref('')
           <!-- 输入框 -->
           <div class="demo-input-size">
             <el-input
-             v-model="input2"
+             v-model="searchkeyword"
              class="w-50 m-2"
-             placeholder="Please Input"
+                  placeholder="Please Input"
              :prefix-icon="Search"
             />
+            <span class="delete iconfont icon-shanchu2" @click="clearinput"></span>
           </div>
         </div>
         <template #dropdown>
           <el-dropdown-menu class="search-dropdown">
-            <div class="title">热门搜索</div>
-            <el-dropdown-item class="list" v-for="item in 10" :key="item">
-                <div class="info">{{item}}、许嵩</div>
-            <div class="num">65万</div>
+            <!-- 热搜推荐组件 -->
+            <div v-if="showHot">
+              <div class="title">热门搜索</div>
+            <el-dropdown-item class="list" v-for="(item,index) in hotData" :key="item.searchWord" @click="clickHot(item.searchWord)">
+                <div class="info">{{index+1}}、{{item.searchWord}}</div>
+            <div class="num">{{item.score.numberFormat()}}</div>
             </el-dropdown-item>
+            </div>
+            <!-- 搜索建议组件 -->
+            <SearchSuggest v-else/>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -66,19 +83,28 @@ const input2 = ref('')
   font-size: 35px;
   color: rgb(191, 186, 186);
 }
+
 span:hover{
 color:#54a8ff;
 cursor: pointer;
   }
 .demo-input-size{
+  position: relative;
   width: 200px;
   height: 40px;
   border-radius: 9999px;
-  // overflow: hidden;
+  /deep/ .el-input__inner{
+    padding-right: 17px;
+  }
+.delete{
+  position: absolute;
+  top: 12px;;
+  right: 16px;
+  width: 10px;
+  height: 10px;
+  font-size: 15px;
 }
-// .el-input{
-//   height: 40px;
-// }
+}
 .demo-input-size /deep/ .el-input__wrapper{
   border-radius: 9999px;
 height: 40px;

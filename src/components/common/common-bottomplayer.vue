@@ -1,7 +1,13 @@
+<!-- eslint-disable vue/no-parsing-error -->
+<!-- eslint-disable vue/no-parsing-error -->
 <script setup lang="ts">
-import { ref } from 'vue'
-const value1 = ref(0)
-const value = ref(0)
+import { toRefs } from 'vue'
+import { useFormatDuring } from '@/utils/number'
+import useStore from '@/store/index'
+import { defaultboFang } from '@/assets/defaultBoFang'
+
+const { player } = useStore()
+const { toggleLoop, loopType, next, prev, togglePlay, isPause, volume, setVolume, duration, currentTime, onSliderInput, onSliderChange, song, playListCount, playList, id, play, clearPlayList, choose } = toRefs(player)
 </script>
 
 <template>
@@ -9,17 +15,17 @@ const value = ref(0)
   <!-- 进度条 -->
 <div class="slider">
   <div class="slider-demo-block">
-    <el-slider v-model="value1" />
+     <el-slider :min="0" v-model="currentTime" :max="duration" @change="onSliderChange" @input="onSliderInput"/>
   </div>
 </div>
 
   <!-- 播放组件 -->
   <div class="left">
-    <img src="@/assets/Snipaste.png" alt="">
+    <img :src="song.al?.picUrl || defaultboFang" alt="">
     <div class="info">
       <div class="title">
-        <span class="maintitle cur">饿了开源音乐</span>
-        <span class="subtitle cur">-kaiyuanxiaokeai</span>
+        <span class="maintitle cur">{{song.name || '开源音乐'}}</span>
+        <span v-for="item in song.ar" :key="item?.id" class="subtitle cur">-{{item?.name || 'kaiyuanxiaokeai'}}</span>
       </div>
       <div class="panel">
         <span class="iconfont icon-xihuan-xianxing cur"></span>
@@ -30,21 +36,21 @@ const value = ref(0)
     </div>
   </div>
   <div class="center">
-    <span class="loop iconfont icon-24gl-repeatOnce2 cur"></span>
-    <span class="pre iconfont icon-shangyishou_huaban cur"></span>
-    <span class="play iconfont icon-bofang cur"></span>
-    <span class="next iconfont icon-xiayishou_huaban cur"></span>
+    <span :class="'loop'+' iconfont'+(loopType===0?' icon-24gl-repeatOnce2':loopType===1?' icon-24gl-repeat2':' icon-xunhuan')+' cur'" @click="toggleLoop"></span>
+    <span class="pre iconfont icon-shangyishou_huaban cur" @click="prev"></span>
+    <span :class="'play'+' iconfont'+(isPause?' icon-bofang':' icon-zanting')+' cur'" @click="togglePlay"></span>
+    <span class="next iconfont icon-xiayishou_huaban cur" @click="next"></span>
       <!-- 音量弹窗 -->
       <el-dropdown :hide-on-click="false">
     <span class="el-dropdown-link">
-      <span class="vol iconfont icon-shengyin cur"></span><el-icon class="el-icon--right"><arrow-down /></el-icon>
+      <span class="vol iconfont icon-shengyin cur"></span><el-icon class="el-icon--right"></el-icon>
     </span>
     <template #dropdown>
       <el-dropdown-menu id="volpanel">
         <!-- ↓音量滑块 -->
         <div id="yinliang">
           <div class="slider-demo-block">
-    <el-slider v-model="value" vertical height="200px"/>
+    <el-slider vertical height="200px" v-model="volume" @input="setVolume"/>
   </div></div>
         <!-- ↑音量滑块 -->
         <el-dropdown-item class="iconfont icon-shengyin"></el-dropdown-item>
@@ -54,7 +60,8 @@ const value = ref(0)
   </div>
   <div class="right">
     <!-- 进度时间 -->
-    <span class="prossive">00:00/00:00</span>
+    <span v-if="song?.dt" class="prossive">{{useFormatDuring(currentTime)}}/{{useFormatDuring(duration)}}</span>
+    <span v-else class="prossive">00:00/00:00</span>
     <!-- 歌词 -->
     <span class="text iconfont icon-wenzi cur"></span>
     <!-- 播放列表组件 -->
@@ -65,22 +72,23 @@ const value = ref(0)
           <!-- 播放列表图标 -->
           <div class="list iconfont icon-gengduo3 cur">
       <!-- 列表数量 -->
-      <div class="number">0</div></div>
+      <div class="number">{{playListCount}}</div></div>
         </span>
         <template #dropdown>
           <div class="scrollbar-title">播放列表</div>
-          <div class="scrollbar-total"><span>共42首歌曲</span><span class="iconfont icon-shanchu">清空</span></div>
+          <div class="scrollbar-total"><span>共{{playListCount}}首歌曲</span><span class="iconfont icon-shanchu qingkong" @click="clearPlayList">清空</span></div>
           <el-dropdown-menu style="width: 400px;height: 600px;">
  <el-scrollbar height="590px">
-    <p v-for="item in 20" :key="item" class="scrollbar-demo-item">
+      <!-- 列表单曲 -->
+    <p v-for="song in playList" :key="song.id" :song="song" :active="song.id===id" :class="'scrollbar-demo-item'+(choose===song?.id?' chosen':'')" style="height: 74.5px ;" @click="play(song.id)">
     <el-dropdown-item >
       <!-- 列表歌曲信息 -->
       <div>
         <span class="info">
-          <img src="@/assets/avatar.png" alt="">
+          <img :src="song.al?.picUrl || defaultboFang" alt="">
           <span class="name">
-            <span class="music-name">剑胆春秋</span>
-            <span class="human-name">赵静</span>
+            <span class="music-name">{{song.name}}</span>
+            <span class="human-name"><span v-for="item in song?.ar" :key="item?.id" class="human-name">-{{item.name}}</span></span>
           </span>
         </span>
         <span class="time">03:58</span>
@@ -114,6 +122,7 @@ padding: 24px 25px 15px 25px;
   left: 0;
   width: 100%;
   height: 9px;
+  padding-right: 30px;
   // background-color: #3091cd;
   .slider-demo-block {
   display: flex;
@@ -121,19 +130,7 @@ padding: 24px 25px 15px 25px;
   .el-slider{
     height: 12px;
   }
-
 }
- .slider-demo-block /deep/ .el-slider__button{
-    width: 6px;
-    height: 7px;
-    background-color: @hovercolor;
-  }
-  .slider-demo-block /deep/ .el-slider__button-wrapper{
-    top: -15.5px;
-  }
-  .slider-demo-block /deep/ .el-slider__runway{
-    height: 3px;
-  }
 }
 .cur:hover{
     cursor: pointer !important;;
@@ -154,7 +151,7 @@ img{
   justify-content: space-between;
   font-size: 20px;
   .maintitle{
-    margin-right: 15px;
+    margin-right: 5px;
     color:@bottomcolor;
   }
   .subtitle{
@@ -270,7 +267,10 @@ span{
     font-size: 10px;
   color: @bottomcolor;
   }
-
+.qingkong:hover{
+  cursor: pointer;
+  color: @hovercolor;
+}
 }
 .el-dropdown-menu{
 .scrollbar-demo-item {
@@ -299,17 +299,23 @@ display: flex;
         img{
           border-radius: 5px;
           margin-right: 5px;
+          width: 49px;
+          height: 49px;
         }
         .name{
           display: flex;
           flex-direction: column;
           justify-content: space-between;
+          .human-name{
+          display: flex;
+flex-direction: row;
+          }
         }
       }
     }
     }
 }
-.el-scrollbar p:nth-child(1){
+.el-scrollbar .chosen{
   border-left: solid #0091ea 2px;
   background-color: #ecf5ff;
   span{
@@ -326,6 +332,7 @@ display: flex;
   justify-content: space-around;
 }
 #yinliang{
+  padding-top: 10px;
   margin-bottom: 5px;
 .slider-demo-block {
   display: flex;

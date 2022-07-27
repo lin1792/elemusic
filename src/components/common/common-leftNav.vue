@@ -1,4 +1,11 @@
+<!-- eslint-disable prefer-const -->
 <script setup lang="ts">
+import useStore from '@/store/index'
+import { storeToRefs } from 'pinia'
+const { leftActive } = useStore()
+const { act } = storeToRefs(leftActive)
+const { useAct } = leftActive
+
 </script>
 
 <template>
@@ -8,16 +15,16 @@
 </h1>
 <el-scrollbar class="text">
     <p class="fb">在线音乐</p>
-    <router-link to="/elerecommond" ><p class="scrollbar-demo-item lianjie active"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p></router-link>
-    <router-link to="/eleclub"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-yinle"></i>&nbsp;音乐馆</p></router-link>
-    <router-link to="/elevideo"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-shipin"></i>&nbsp;视频</p></router-link>
-    <router-link to="/elediantai"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-diantai"></i>&nbsp;电台</p></router-link>
+    <router-link to="/elerecommond" ><p :class="'scrollbar-demo-item'+' lianjie'+(act===1?' active':'')" @click="useAct(1)"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p></router-link>
+    <router-link to="/eleclub"><p :class="'scrollbar-demo-item'+' lianjie'+(act===2?' active':'')" @click="useAct(2)"><i class="iconfont icon-yinle"></i>&nbsp;音乐馆</p></router-link>
+    <router-link to="/elevideo"><p :class="'scrollbar-demo-item'+' lianjie'+(act===3?' active':'')" @click="useAct(3)"><i class="iconfont icon-shipin"></i>&nbsp;视频</p></router-link>
+    <router-link to="/elediantai"><p :class="'scrollbar-demo-item'+' lianjie'+(act===4?' active':'')" @click="useAct(4)"><i class="iconfont icon-diantai"></i>&nbsp;电台</p></router-link>
     <p class="scrollbar-demo-item ct"></p>
     <p class="fb">我的音乐</p>
-    <router-link to="/mylove"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xihuan-xianxing"></i>&nbsp;我喜欢</p></router-link>
-    <router-link to="/local"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-bendi1x"></i>&nbsp;本地歌曲</p></router-link>
-    <router-link to="/download"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xiazai-wenjianxiazai-07"></i>&nbsp;下载歌曲</p></router-link>
-    <router-link to="/recentplay"><p class="scrollbar-demo-item lianjie"><i class="iconfont icon-zuijinyuedu"></i>&nbsp;最近播放</p></router-link>
+    <router-link to="/mylove"><p :class="'scrollbar-demo-item'+' lianjie'+(act===5?' active':'')" @click="useAct(5)"><i class="iconfont icon-xihuan-xianxing"></i>&nbsp;我喜欢</p></router-link>
+    <router-link to="/local"><p :class="'scrollbar-demo-item'+' lianjie'+(act===6?' active':'')" @click="useAct(6)"><i class="iconfont icon-bendi1x"></i>&nbsp;本地歌曲</p></router-link>
+    <router-link to="/download"><p :class="'scrollbar-demo-item'+' lianjie'+(act===7?' active':'')" @click="useAct(7)"><i class="iconfont icon-xiazai-wenjianxiazai-07"></i>&nbsp;下载歌曲</p></router-link>
+    <router-link to="/recentplay"><p :class="'scrollbar-demo-item'+' lianjie'+(act===8?' active':'')" @click="useAct(8)"><i class="iconfont icon-zuijinyuedu"></i>&nbsp;最近播放</p></router-link>
     <p class="scrollbar-demo-item end"></p>
   </el-scrollbar>
 </div>
