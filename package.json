@@ -11,12 +11,13 @@
     "axios": "^0.27.2",
     "element-plus": "^2.2.9",
     "pinia": "^2.0.0-rc.10",
+    "require": "^2.4.20",
     "ts-loader": "^9.3.1",
     "vue": "^3.2.25",
     "vue-router": "^4.1.2"
   },
   "devDependencies": {
-    "@types/node": "^18.0.6",
+    "@types/node": "^18.6.1",
     "@typescript-eslint/eslint-plugin": "^5.30.7",
     "@typescript-eslint/parser": "^5.30.7",
     "@vitejs/plugin-vue": "^2.3.3",

@@ -1,4 +1,45 @@
+<!-- eslint-disable no-duplicate-imports -->
 <script setup lang="ts">
+import useStore from '@/store/index'
+import { storeToRefs } from 'pinia'
+import { toRefs, onMounted } from 'vue'
+import { Mvtupian } from '@/assets/defaultBoFang'
+import { useVideoStore } from '@/store/video'
+import { useBannerStore } from '@/store/banner'
+import { Tuijian } from '@/assets/defaultBoFang'
+import { Banner } from '@/models/banner'
+import { useMusicStore } from '@/store/music'
+const { search, player } = useStore()
+const { hotData } = storeToRefs(search)
+const { getPersonalizedMv } = useVideoStore()
+const { PersonalizedMv } = toRefs(useVideoStore())
+const { getBanners } = useBannerStore()
+const { banners } = toRefs(useBannerStore())
+const { play } = player
+onMounted(async() => {
+  await getPersonalizedMv()
+})
+// 推荐
+onMounted(async () => {
+  await getBanners()
+})
+const clickBanner = (banner:Banner) => {
+  if (banner.targetType === 1) {
+    play(banner.targetId)
+  }
+}
+// 推荐专属歌单
+const { personalized } = toRefs(useMusicStore())
+const { getPersonalized } = useMusicStore()
+onMounted(async () => {
+  await getPersonalized()
+})
+// 推荐新音乐
+const { personalizedNewSongs } = toRefs(useMusicStore())
+const { getPersonalizedNewSong } = useMusicStore()
+onMounted(async () => {
+  await getPersonalizedNewSong()
+})
 </script>
 
 <template>
@@ -11,16 +52,16 @@
   <!-- 推荐左布局 -->
  <div class="left">
    <el-carousel :interval="4000" type="card" height="204px">
-    <el-carousel-item class="el-carousel-item" v-for="item in 6" :key="item">123
+    <el-carousel-item class="el-carousel-item" v-for="item in banners" :key="item.bannerId"><img :src="item.imageUrl || Tuijian" alt="" @click="clickBanner(item)">
     </el-carousel-item>
   </el-carousel>
  </div>
  <!-- 推荐右模块布局 -->
  <div class="right">
   <div class="title">排行榜</div>
-  <div v-for="item in 4" :key="item" class="info">
-    <span>{{item}}、许嵩</span>
-    <span class="num">63.8万</span>
+  <div v-for="(item,index) in hotData.slice(0,4)" :key="index" class="info">
+    <span>{{index + 1}}、{{item.searchWord}}</span>
+    <span class="num">{{item.score.numberFormat()}}</span>
   </div>
  </div>
 </div>
@@ -29,10 +70,13 @@
   <div class="zhuangshu">
     <div class="header">你的专属歌单<span class="iconfont icon-gengduo"></span></div>
     <div class="body">
-      <span v-for="item in 10" :key="item">
-      <span class="img"><span class="num iconfont icon-24gf-headphones">1.2千万</span>
-      <span class="cover iconfont icon-24gl-play"></span></span>
-      <p>荣耀剑下取,均衡乱中求</p></span>
+      <span class="xunhuan" v-for="item in personalized" :key="item.id">
+      <span class="img">
+        <img :src="item.picUrl" alt="">
+        <span class="num iconfont icon-24gf-headphones">{{item.playCount.numberFormat()}}</span>
+      <span class="cover iconfont icon-24gl-play"></span>
+      </span>
+      <p>{{item.name}}</p></span>
     </div>
   </div>
   <!-- 推荐新音乐 -->
@@ -40,11 +84,11 @@
     <div class="header">推荐新音乐<span class="iconfont icon-gengduo"></span></div>
     <div class="body">
    <el-row>
-    <el-col v-for="item in 10" :key="item" :span="24"><div class="grid-content ep-bg-purple-dark">
-      <img src="@/assets/推荐新音乐.png" alt="">
+    <el-col v-for="item in personalizedNewSongs" :key="item.id" :span="24" @click="play(item.id)"><div class="grid-content ep-bg-purple-dark">
+      <img :src="item.picUrl" alt="">
       <div class="info">
-<div class="music-name">好好学习，天天向上</div>
-<div class="human-name">赵静</div>
+<div class="music-name">{{item.name}}</div>
+<div class="human-name">{{item.song.artists[0].name}}</div>
       </div>
     </div></el-col>
   </el-row>
@@ -54,15 +98,17 @@
   <div class="MV">
     <div class="header">推荐MV<span class="iconfont icon-gengduo"></span></div>
     <div class="body">
-      <el-row>
-    <el-col v-for="item in 4" :key="item" :span="24"><div class="grid-content ep-bg-purple-dark">
-      <!-- <img src="@/assets/推荐MV.png" alt=""> -->
-        <span class="img">
-        <span class="num iconfont icon-bofang"> 134</span>
+        <el-row>
+    <el-col v-for="item in PersonalizedMv" :key="item.id" :span="24"><div class="grid-content ep-bg-purple-dark">
+        <router-link :to="{ path: '/MvDetail', query: {id:item.id } }">
+          <span class="img">
+        <img class="tu" :src="item.picUrl || Mvtupian" alt="">
       <span class="cover iconfont icon-24gl-play"></span>
+      <span class="num iconfont icon-bofang"> 134</span>
       </span>
-      <div class="info"><div class="music-name">好好学习，天天向上</div>
-<div class="human-name">赵静</div></div></div></el-col>
+        </router-link>
+      <div class="info"><div class="music-name">{{item.name}}</div>
+<div class="human-name">{{item.artistName}}</div></div></div></el-col>
   </el-row>
     </div>
   </div>
@@ -105,10 +151,8 @@ margin: 10px 0;
   width: 100%;
   .left{
     width: 70%;
-.el-carousel-item{
-  background-image: url('@/assets/推荐.png');
-  background-size: contain;
-  background-repeat: no-repeat;
+img{
+  width: 100%;
 }
 .el-carousel__item:nth-child(n) {
   background-color: #99a9bf;
@@ -137,8 +181,6 @@ margin: 10px 0;
       padding: 5px 5px;
       border-radius: 10px;
       transition: all 0.3s linear;
-    }
-    .info:nth-child(2n){
       background-color: #40a0ff25;
     }
     .info:hover {
@@ -157,48 +199,65 @@ margin: 10px 0;
     justify-content: space-between;
     height: 160px;
     // background-color: pink;
-    span{
+    .xunhuan{
+      position: relative;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
       position: relative;
       width: 136px;
       // background-color: red;
-.img{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 136px;
-  background-image: url('@/assets/你的专属歌单.png');
-  background-size: contain;
-  border-radius: 10px;
-  margin-bottom:2px;
-  transition: all 0.3s linear;
-  .cover{
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color:rgba(0, 0, 0, 0);
-    border-radius: 10px;
-    font-size: 0;
-    color: #ffffff;
-    line-height: 136px;
-    text-align: center;
-    transition: all 0.3s linear;
-  }
-};
-.img:hover{
-  top: -5px;
-  cursor: pointer;
-}
-.img .cover:hover{
-    background-color:rgba(0, 0, 0, 0.5);
-    font-size: 40px;
-    color: @hovercolor;
+      .img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 136px;
+        transition: all 0.3s linear;
+        border-radius: 10px;
+        overflow: hidden;
+        img{
+          width: 100%;
+        }
+        .num{
+        flex-direction: row;
+        position: absolute;
+        top: 110px;
+        right: 5px;
+        width: auto;
+        height: 20px;
+        background-color:rgba(0, 0, 0, 0.5);
+        border-radius: 9999px;
+        padding: 2px 6px;
+        font-size: 12px;
+        line-height: 15px;
+        color: #ffffff;
+        }
+        .cover{
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          padding-top: 50px;
+          background-color:rgba(0, 0, 0, 0);
+          font-size: 0;
+          color: #ffffff;
+          text-align: center;
+        transition: all 0.3s linear;
 
-}
+        }
+        .cover:hover{
+          background-color:rgba(0, 0, 0, 0.5);
+          font-size: 40px;
+          color: #409eff;
+        }
+      }
+      .img:hover{
+        top: -5px;
+        cursor: pointer;
+      }
+
 
 p{
        font-size: 14px;
@@ -206,21 +265,7 @@ p{
       overflow: hidden;
       text-overflow: ellipsis;
      }
-.num{
-  flex-direction: row;
-  position: absolute;
-  top: 110px;
-  right: 5px;
-  width: auto;
-  height: 20px;
-  background-color:rgba(0, 0, 0, 0.5);
-  border-radius: 9999px;
-  padding: 2px 6px;
-  font-size: 12px;
-  line-height: 15px;
-  color: #ffffff;
-  transition: all 0.3s linear;
-}
+
     }
   }
 }
@@ -247,9 +292,11 @@ p{
   display: flex;
   margin: 0;
   border-radius: 4px;
+  width: 100%;
   min-height: 36px;
   // background-color: #d3dce6;
 img{
+  width: 20.135%;
   border-radius:5px;
 }
 .info{
@@ -300,31 +347,32 @@ img{
   border-radius: 4px;
   min-height: 36px;
   margin: 0;
-
-    .img{
-    position: absolute;
+.img{
+position: absolute;
     top: 0;
     left: 0;
     border-radius: 10px;
     width: 100%;
     height: 200px;
-    background-image: url('@/assets/推荐MV.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: all 0.3s linear;
-     .cover{
-    position: absolute;
-    top: 0;
+    overflow: hidden;
+    transition: all 0.3s linear;}
+  img{
     width: 100%;
     height: 100%;
-    background-color:rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    transition: all 0.3s linear;
+  }
+.cover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:rgba(0, 0, 0, 0);
     font-size: 0;
     color: #ffffff;
     line-height: 200px;
     text-align: center;
     transition: all 0.3s linear;
-  }
   }
 .num{
   position: absolute;
@@ -338,15 +386,14 @@ img{
   color: #ffffff;
     transition: all 0.3s linear;
 }
-.img:hover{
-  top: -5px;
-  cursor: pointer;
-}
-.img .cover:hover{
+.cover:hover{
     background-color:rgba(0, 0, 0, 0.5);
     font-size: 40px;
     color: @hovercolor;
-
+}
+.img:hover{
+  top: -5px;
+  cursor: pointer;
 }
 
 }

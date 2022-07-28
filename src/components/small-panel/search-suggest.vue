@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import useStore from '@/store/index'
 import { storeToRefs } from 'pinia'
-import { useRouter } from 'vue-router'
-const router = useRouter()
 const { search, player } = useStore()
 const { suggestData } = storeToRefs(search)
 const { searchSuggest } = search
-const routerPush = (name: string, id: number) => {
-  router.push({ name: 'artistsDetail', query: { id } }).catch(err => err)
-}
 
 const{ play } = player
 searchSuggest()
@@ -31,24 +26,31 @@ const getTitle = (name: string) => {
 </script>
 <template v-if="suggestData">
 <div  class="suggest" v-for="(order,index) in suggestData.order" :key="index">
-  <!-- 单曲 -->
+  <!-- 小标题 -->
   <div class="title">{{getTitle(order)}}</div>
+  <!-- 单曲 -->
   <div class="danqu" v-if="order === 'songs'" >
     <div v-for="item in suggestData.songs" :key="item.id" class="main" :title="item.name" @click="play(item.id)"><span class="name">{{item.name}}</span> <span v-for="ist in item.artists" :key="ist.id">-{{ist.name}}</span></div>
   </div>
 <!-- 歌手 -->
-<div class="danqu" v-if="order === 'artists'">
-    <div v-for="item in suggestData.artists" :key="item.id" class="main" :title="item.name" @click="routerPush('artistsDetail',item.id)"><img :src="item.img1v1Url" alt="" ><span>{{item.name}}</span></div>
-  </div>
-  <!-- 专辑 -->
-  <div class="danqu" v-if="order === 'albums'">
-    <div v-for="item in suggestData.albums" :key="item.id" class="main" @click="routerPush('albumsDetail',item.id)"><span class="name" :title="item.name" >{{item.name}}</span><span> -{{item.artist.name}}</span></div>
-  </div>
-  <!-- 歌单 -->
-  <div class="danqu" v-if="order === 'playlists'">
-    <div v-for="item in suggestData.playlists" :key="item.id" class="main" :title="item.name" @click="routerPush('playlistsDetail',item.id)"><img :src="item.coverImgUrl" alt=""><span>{{item.name}}</span></div>
+<div  v-if="order === 'artists'">
+  <div class="geshou" v-for="item in suggestData.artists" :key="item.id">
+    <router-link to="/artistDetail"><div  class="main" :title="item.name"><img :src="item.img1v1Url" alt="" ><span>{{item.name}}</span></div></router-link>
   </div>
 </div>
+  <!-- 专辑 -->
+  <div v-if="order === 'albums'">
+    <div class="zhuanji"  v-for="item in suggestData.albums" :key="item.id" >
+    <router-link to="/albumDetail"><div class="main" ><span class="name" :title="item.name" >{{item.name}}</span><span> -{{item.artist.name}}</span></div></router-link>
+  </div>
+  </div>
+  <!-- 歌单 -->
+  <div v-if="order === 'playlists'">
+    <div class="gedan" v-for="item in suggestData.playlists" :key="item.id">
+    <router-link to="playlistDtail"><div  class="main" :title="item.name" ><img :src="item.coverImgUrl" alt=""><span>{{item.name}}</span></div></router-link>
+  </div>
+</div>
+  </div>
 </template>
 <style lang="less" scoped>
 @bottomcolor:#334055;

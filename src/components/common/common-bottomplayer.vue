@@ -1,13 +1,14 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <!-- eslint-disable vue/no-parsing-error -->
 <script setup lang="ts">
-import { toRefs } from 'vue'
 import { useFormatDuring } from '@/utils/number'
 import useStore from '@/store/index'
 import { defaultboFang } from '@/assets/defaultBoFang'
+import { storeToRefs } from 'pinia'
 
 const { player } = useStore()
-const { toggleLoop, loopType, next, prev, togglePlay, isPause, volume, setVolume, duration, currentTime, onSliderInput, onSliderChange, song, playListCount, playList, id, play, clearPlayList, choose } = toRefs(player)
+const { loopType, isPause, volume, duration, currentTime, song, playListCount, playList, choose } = storeToRefs(player)
+const { toggleLoop, next, prev, togglePlay, setVolume, onSliderInput, onSliderChange, play, clearPlayList } = player
 </script>
 
 <template>
@@ -80,7 +81,7 @@ const { toggleLoop, loopType, next, prev, togglePlay, isPause, volume, setVolume
           <el-dropdown-menu style="width: 400px;height: 600px;">
  <el-scrollbar height="590px">
       <!-- 列表单曲 -->
-    <p v-for="song in playList" :key="song.id" :song="song" :active="song.id===id" :class="'scrollbar-demo-item'+(choose===song?.id?' chosen':'')" style="height: 74.5px ;" @click="play(song.id)">
+    <p v-for="song in playList" :key="song.id" :class="'scrollbar-demo-item'+(choose===song?.id?' chosen':'')" style="height: 74.5px ;" @click="play(song.id)">
     <el-dropdown-item >
       <!-- 列表歌曲信息 -->
       <div>

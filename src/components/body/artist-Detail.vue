@@ -1,367 +1,321 @@
+<!-- eslint-disable vue/no-parsing-error -->
+<!-- eslint-disable vue/no-parsing-error -->
+<!-- eslint-disable vue/no-parsing-error -->
 <script setup lang="ts">
+import { ref } from 'vue'
+import type { TabsPaneContext } from 'element-plus'
+
+const activeName = ref('first')
+
+const handleClick = (tab: TabsPaneContext, event: Event) => {
+  console.log(tab, event)
+}
+
 </script>
-
 <template>
-  <el-scrollbar height="100%">
-    <div class="scrollbar-demo-item">
-      <!-- 推荐 -->
-     <div class="tuijian">
-       <div class="header">用户详情</div>
-<div class="body">
-  <!-- 推荐左布局 -->
- <div class="left">
-   <el-carousel :interval="4000" type="card" height="204px">
-    <el-carousel-item class="el-carousel-item" v-for="item in 6" :key="item">123
-    </el-carousel-item>
-  </el-carousel>
- </div>
- <!-- 推荐右模块布局 -->
- <div class="right">
-  <div class="title">排行榜</div>
-  <div v-for="item in 4" :key="item" class="info">
-    <span>{{item}}、许嵩</span>
-    <span class="num">63.8万</span>
+  <div class="container">
+     <div class="common-layout">
+    <el-container>
+      <!-- 头 -->
+      <el-header class="bigHeader">
+        <div class="common-layout">
+    <el-container>
+      <el-aside class="upAside" width="200px"><img src="@/assets/artist-pic.jpg" alt=""></el-aside>
+      <el-container>
+        <el-header class="artistName">许嵩</el-header>
+        <el-main class="desc">著名作词人、作曲人、唱片制作人、歌手。内地独立音乐之标杆人物，有音乐鬼才之称。2009年独立出版首张词曲全创作专辑《自定义》，2010年独立出版第二张词曲全创作专辑《寻雾启示》，两</el-main>
+        <el-footer class="btns">
+          <div class="bt1">+关注</div>
+          <div class="bt2 iconfont icon-diantai">歌手电台</div>
+          <div class="bt3 iconfont icon-gengduo1"></div>
+        </el-footer>
+      </el-container>
+    </el-container>
   </div>
- </div>
-</div>
-     </div>
-  <!-- 你的专属歌单 -->
-  <div class="zhuangshu">
-    <div class="header">你的专属歌单<span class="iconfont icon-gengduo"></span></div>
-    <div class="body">
-      <span v-for="item in 10" :key="item">
-      <span class="img"><span class="num iconfont icon-24gf-headphones">1.2千万</span>
-      <span class="cover iconfont icon-24gl-play"></span></span>
-      <p>荣耀剑下取,均衡乱中求</p></span>
-    </div>
-  </div>
-  <!-- 推荐新音乐 -->
-  <div class="xinyinyue">
-    <div class="header">推荐新音乐<span class="iconfont icon-gengduo"></span></div>
-    <div class="body">
-   <el-row>
-    <el-col v-for="item in 10" :key="item" :span="24"><div class="grid-content ep-bg-purple-dark">
-      <img src="@/assets/推荐新音乐.png" alt="">
-      <div class="info">
-<div class="music-name">好好学习，天天向上</div>
-<div class="human-name">赵静</div>
-      </div>
-    </div></el-col>
-  </el-row>
-    </div>
-  </div>
-  <!-- 推荐MV -->
-  <div class="MV">
-    <div class="header">推荐MV<span class="iconfont icon-gengduo"></span></div>
-    <div class="body">
-      <el-row>
-    <el-col v-for="item in 4" :key="item" :span="24"><div class="grid-content ep-bg-purple-dark">
-      <!-- <img src="@/assets/推荐MV.png" alt=""> -->
-        <span class="img">
-        <span class="num iconfont icon-bofang"> 134</span>
-      <span class="cover iconfont icon-24gl-play"></span>
-      </span>
-      <div class="info"><div class="music-name">好好学习，天天向上</div>
-<div class="human-name">赵静</div></div></div></el-col>
-  </el-row>
-    </div>
-  </div>
-  <!-- 123 -->
-      <!-- <div v-for="item in 100" :key="item">{{item }}</div> -->
-    </div>
-  </el-scrollbar>
-</template>
+      </el-header>
+      <!-- 菜单 -->
+      <div class="menu">
+        <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
 
+    <el-tab-pane label="精选" name="first" class="men menu1">
+      <div class="li list1">精选内容暂未开发</div>
+    </el-tab-pane>
+
+    <el-tab-pane label="歌曲" name="second" class="men menu2">
+      <div class="li list2">
+        <div class="smallHeader">
+          <div class="left">
+            <div class="iconfont icon-24gl-play">播放</div>
+          <div class="iconfont icon-xiazai-wenjianxiazai-07">下载</div>
+          <div class="">√批量操作</div>
+          </div>
+          <div class="right">
+            <div>最热</div>
+            <div>最新</div>
+          </div>
+        </div>
+        <div class="mainTitle">
+          <div class="left">歌曲</div>
+          <div class="center">专辑</div>
+          <div class="right"><div>时长</div></div>
+        </div>
+        <!-- 内容主体 -->
+        <div class="frame">
+          <el-scrollbar>
+    <p class="scrollbar-demo-item">
+<div v-for="item in 100" :key="item" class="content">
+          <div class="song">
+            <div class="left">
+              <div class="love iconfont icon-xihuan-xianxing"></div>
+              <div class="text">有何不可</div>
+            </div>
+            <div class="right">
+              <div class="play iconfont icon-24gl-play"></div>
+              <div class="add iconfont icon-tianjia"></div>
+              <div class="download iconfont icon-xiazai1"></div>
+              <div class="more iconfont icon-gengduo4"></div>
+            </div>
+          </div>
+          <div class="album">自定义</div>
+          <div class="time"><div>00:00/00:00</div></div>
+        </div>
+        </p>
+  </el-scrollbar>
+        </div>
+      </div>
+    </el-tab-pane>
+
+    <el-tab-pane label="专辑" name="third" class="men menu3">
+      <div class="li list3">专辑内容暂未开发</div>
+    </el-tab-pane>
+
+    <el-tab-pane label="视频" name="fourth" class="men menu4">
+      <div class="li list4">视频内容暂未开发</div>
+    </el-tab-pane>
+
+    <el-tab-pane label="详情" name="fifth" class="men menu5">
+      <div class="li list5">详情内容暂未开发</div>
+    </el-tab-pane>
+  </el-tabs>
+      </div>
+      </el-container>
+  </div>
+  </div>
+</template>
 <style lang="less" scoped>
 @bottomcolor:#334055;
 @hovercolor:#409eff;
 @mockcolor:#ecf5ff;
-.scrollbar-demo-item {
-  height: 50px;
-  margin: 10px;
-  padding: 0 50px  20px;
-  color: @bottomcolor;
-  div{
-margin: 10px 0;
-
-  }
-  .header{
-    font-size: 25px;
-    span{
-      font-size: 25px;
-    }
-  }
-  // 推荐
-.tuijian{
-   .header{
-  font-size: 40px;
-  font-weight: 700;
- }
-.body{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 220px;
-  width: 100%;
-  .left{
-    width: 70%;
-.el-carousel-item{
-  background-image: url('@/assets/推荐.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-}
-.el-carousel__item:nth-child(n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(n+1) {
-  background-color: #d3dce6;
-}
-  }
-  .right{
-    width: 27%;
-    height: 90%;
-    background-color: #109ff85c;
-    border-radius: 10px;
-    line-height: 100%;
-    padding: 10px 10px;
-    .title{
-      font-size: 25px;
-      font-weight: 500;
-      padding-bottom: 5px;
-    }
-    .info{
-      display: flex;
-      justify-content: space-between;
-      font-size: 20px;
-      padding: 5px 5px;
-      border-radius: 10px;
-      transition: all 0.3s linear;
-    }
-    .info:nth-child(2n){
-      background-color: #40a0ff25;
-    }
-    .info:hover {
-      cursor: pointer;
-      background-color: #40a0ffc8;
-      font-size:21px ;
-    }
-  }
-}
-}
-
-// 你的专属歌单
-.zhuangshu{
-  .body{
-    display: flex;
-    justify-content: space-between;
-    height: 160px;
-    // background-color: pink;
-    span{
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+.container{
+  padding: 10px 200px 10px 20px;
+  // 大头
+  .bigHeader{
+    margin-bottom: 200px;
+    height: 0px;
+    .upAside{
       position: relative;
-      width: 136px;
-      // background-color: red;
-.img{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 136px;
-  background-image: url('@/assets/你的专属歌单.png');
-  background-size: contain;
-  border-radius: 10px;
-  margin-bottom:2px;
-  transition: all 0.3s linear;
-  .cover{
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color:rgba(0, 0, 0, 0);
-    border-radius: 10px;
-    font-size: 0;
-    color: #ffffff;
-    line-height: 136px;
-    text-align: center;
-    transition: all 0.3s linear;
-  }
-};
-.img:hover{
-  top: -5px;
-  cursor: pointer;
-}
-.img .cover:hover{
-    background-color:rgba(0, 0, 0, 0.5);
-    font-size: 40px;
-    color: @hovercolor;
-
-}
-
-p{
-       font-size: 14px;
-      white-space: nowrap;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
       overflow: hidden;
-      text-overflow: ellipsis;
-     }
-.num{
-  flex-direction: row;
-  position: absolute;
-  top: 110px;
-  right: 5px;
-  width: auto;
-  height: 20px;
-  background-color:rgba(0, 0, 0, 0.5);
-  border-radius: 9999px;
-  padding: 2px 6px;
-  font-size: 12px;
-  line-height: 15px;
-  color: #ffffff;
-  transition: all 0.3s linear;
-}
+      img{
+        position: absolute;
+        top: 0;
+        left: -20px;
+       height: 180px;
+        // border-radius: 50%;
+      }
+    }
+    .artistName{
+      font-size: 40px;
+      font-weight: 700;
+      color: @bottomcolor;
+    }
+    .desc{
+      padding-left: 50px;
+    }
+    .btns{
+      // margin-top: 10px;
+      display:flex;
+      div{
+        margin-right: 10px;
+        border:1px solid #3340553f ;
+        border-radius: 9999px;
+        text-align: center;
+        line-height: 30px;
+      }
+      .bt1{
+        width: 120px;
+        height: 30px;
+        padding: 0 10px;
+        background-color: @hovercolor;
+        border-color:#40a0ff4c;
+        color:#ffffff
+      }
+      .bt2{
+        width: 120px;
+        height: 30px;
+        padding: 0 10px;
+
+      }
+      .bt3{
+        width: 30px;
+        height:30px;
+      }
+      .bt1:hover{
+        cursor: pointer;
+        background-color:#067bf1;
+        border-color: @hovercolor;
+      }
+      .bt2:hover{
+        cursor: pointer;
+        color: @hovercolor;
+        border-color: @hovercolor;
+      }
+      .bt3:hover{
+        cursor: pointer;
+        color: @hovercolor;
+        border-color: @hovercolor;
+      }
     }
   }
-}
-
-// 推荐新音乐
-.xinyinyue{
-.body{
-  .el-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-}
-.el-col {
-  max-width: 19%;
-  margin: 0;
-  border-radius: 4px;
-  // background-color: pink;
-}
-.el-col:nth-last-of-type(n+6){
-  margin-bottom: 7px;
-}
-
-.grid-content {
-  display: flex;
-  margin: 0;
-  border-radius: 4px;
-  min-height: 36px;
-  // background-color: #d3dce6;
-img{
-  border-radius:5px;
-}
-.info{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 7px 0;
-  .music-name{
-    margin: 2px;
-  }
-  .human-name{
-      margin: 2px;
-      color: #898888;
-  }
-}
-}
-.grid-content:hover{
-  background-color:@mockcolor;
-  cursor: pointer;
-}
-}
-}
-
-// 推荐MV
-.MV{
-  .body{
-    height: 250px;
-    // background-color: pink;
-    .el-row {
-      display: flex;
-      justify-content: space-between;
-      height: 100%;
-      margin: 0;
-     }
-.el-col {
-  // background-color:red;
-  max-width: 24%;
-      margin: 0;
-}
-
-.grid-content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  position: relative;
-  height: 100%;
-  border-radius: 4px;
-  min-height: 36px;
-  margin: 0;
-
-    .img{
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 10px;
-    width: 100%;
-    height: 200px;
-    background-image: url('@/assets/推荐MV.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    transition: all 0.3s linear;
-     .cover{
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color:rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    font-size: 0;
-    color: #ffffff;
-    line-height: 200px;
-    text-align: center;
-    transition: all 0.3s linear;
-  }
-  }
-.num{
-  position: absolute;
-  top: 171px;
-  right: 6px;
-  width: auto;
-  background-color:rgba(0, 0, 0, 0.5);
-  border-radius: 9999px;
-  padding: 2px 5px;
-  font-size: 14px;
-  color: #ffffff;
-    transition: all 0.3s linear;
-}
-.img:hover{
-  top: -5px;
-  cursor: pointer;
-}
-.img .cover:hover{
-    background-color:rgba(0, 0, 0, 0.5);
-    font-size: 40px;
-    color: @hovercolor;
-
-}
-
-}
-.info{
-  margin: 0;
-  .music-name{
-    margin:2px 0;
+  // 菜单
+ .menu{
+   .demo-tabs{
+    padding: 0 30px;
+    font-size: 30px;
+    .men{
+      .li{
+        width: 100%;
+        height: 52vh;
+        // background-color: pink;
+      }
     }
-    .human-name{
-      margin:2px 0 ;
-      color:#898888;
-    }
-}
-}
-  }
-}
+    .menu2{
+      .smallHeader{
+        display: flex;
+        justify-content: space-between;
+        .left{
+        display: flex;
 
+        div{
+          width: 100px;
+          height: 25px;
+          border: 1px solid rgba(167, 165, 165, 0.688);
+          margin-right: 10px;
+          border-radius: 999px;
+          text-align: center;
+          font-size: 15px;
+        }
+        div:hover{
+          color:@hovercolor;
+          border-color: @hovercolor;
+          cursor: pointer;
+        }
+        }
+        .right{
+          display: flex;
+          font-size: 15px;
+          margin-right: 25px;
+          div{
+          height: 25px;
+          margin-left: 10px;
+          line-height: 25px;
+          }
+          div:hover{
+            color:@hovercolor;
+            cursor: pointer;
+          }
+        }
+      }
+      .mainTitle{
+        display: flex;
+        justify-content: space-between;
+        font-size: 17px;
+        height: 30px;
+        // background-color: #067bf1;
+        line-height: 30px;
+        .left{
+          flex: 4 ;
+          color: rgba(106, 105, 105, 0.627);
+        }
+        .center{
+          flex: 2;
+          color: rgba(106, 105, 105, 0.627);
+        }
+        .right{
+          display: flex;
+          flex: 1;
+          justify-content: end;
+          margin-right: 42px;
+          div{
+          color: rgba(106, 105, 105, 0.627);
+          }
+        }
+      }
+      // 内容主体
+      .frame{
+        // background-color:blue;
+        height: 46.2vh;
+        .content{
+        display: flex;
+        justify-content: space-between;
+        font-size: 17px;
+        height: 30px;
+        // background-color: #067bf1;
+        line-height: 30px;
+        .song{
+          display: flex;
+          justify-content: space-between;
+          flex: 4 ;
+        color:@bottomcolor;
+        .left{
+          display: flex;
+          .love{
+            padding-right: 5px;
+          }
+        }
+        .left div:hover{
+          cursor: pointer;
+          color:@hovercolor;
+        }
+        .right{
+          display: flex;
+          .iconfont{
+            margin: 0 5px;
+          }
+          .more{
+            margin-right: 20px;
+          }
+        }
+        .right .iconfont:hover{
+          cursor: pointer;
+          color:@hovercolor;
+        }
+        }
+        .album{
+          flex: 2;
+        color: @bottomcolor;
+        margin-right: 28px;
+        }
+        .album:hover{
+          cursor: pointer;
+          color:@hovercolor;
+        }
+        .time{
+          display: flex;
+          flex: 1;
+          justify-content: end;
+          margin-right: 15px;
+        color: @bottomcolor;
+        }
+      }
+      .content:hover{
+        background-color:@mockcolor;
+      }
+      }
+    }
+   }
+ }
+}
 </style>

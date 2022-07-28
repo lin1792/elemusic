@@ -2,12 +2,18 @@ import http from '@/utils/http'
 import { SearchHotDetail, SearchSuggest } from '@/models/search'
 import { SongUrl } from '@/models/SongUrl'
 import { Song } from '@/models/Song'
-// 调试接口
+import { PersonalizedMv, Personalized, PersonalizedNewSong } from '@/models/personalized'
+import type { MvUrl } from '@/models/mv'
+import type { Banner } from '@/models/banner'
+
+
+// 用来调试接口
 export async function useTiaoshi() {
-  // const result1 = await http.get('/search/suggest?keywords=许嵩')
+  const banners = await http.get('/personalized/newsong')
+
   const { result } = await http.get('/search/suggest?keywords=许嵩')
   const { songs } = await http.get('/song/detail?ids=347230')
-  console.log(songs[0])
+  console.log(banners)
   // console.log(data[0].content)
 }
 
@@ -16,18 +22,48 @@ export async function useHotsearch() {
   const { data } = await http.get<{ data: SearchHotDetail[] }>('/search/hot/detail')
   return data
 }
-
+// 热搜建议
 export async function useSearchSuggest(keywords: string) {
   const { result } = await http.get<{ result: SearchSuggest }>('search/suggest', { keywords })
   return result
 }
-
+// 歌曲地址
 export async function useSongUrl(id: number) {
   const { data } = await http.get<{ data: SongUrl[] }>('/song/url', { id })
   return data[0]
 }
-
+// 歌曲详情
 export async function useDetail(id: number) {
   const { songs } = await http.get<{ songs: Song[] }>('/song/detail', { ids: id })
   return songs[0]
+}
+
+// 推荐MV
+export async function usePersonalizedMv() {
+  const { result } = await http.get<{ result: PersonalizedMv[] }>('personalized/mv')
+  return result
+}
+
+// MvUrl
+export async function useMvUrl(id: number) {
+  const { data } = await http.get<{ data: MvUrl }>('mv/url', { id })
+  return data
+}
+
+// 推荐轮播图banner
+export async function useBanner() {
+  const { banners } = await http.get<{ banners: Banner[] }>('/banner')
+  return banners
+}
+
+// 推荐歌单
+export async function usePersonalized() {
+  const { result } = await http.get<{ result: Personalized[] }>('/personalized?limit=10')
+  return result
+}
+
+// 推荐新音乐
+export async function usePersonalizedNewsong() {
+  const { result } = await http.get<{ result: PersonalizedNewSong[] }>('/personalized/newsong')
+  return result
 }

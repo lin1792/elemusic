@@ -3,39 +3,50 @@ import musicClubVue from '@/components/body/music-club.vue'
 import musicRecommendVue from '@/components/body/music-recommend.vue'
 import tiaoShiVue from '@/components/body/tiao-shi.vue'
 import artistDetailVue from '@/components/body/artist-Detail.vue'
+import mvBoFangVue from '@/components/body/mvBoFang.vue'
 
 const routes: Array<RouteRecordRaw> = [
+  // 左侧导航栏大板块内容
   {
     path: '/',
-    redirect: '/musicrecommond'
+    redirect: '/elerecommond'
   },
   {
     path: '/elerecommond',
-    name: 'musicrecommond',
+    name: 'elerecommond',
     component: musicRecommendVue,
-    alias: '/musicrecommond',
+    alias: '/elerecommond',
     meta: { title: '首页' },
   },
   {
     path: '/eleclub',
-    name: 'musicclub',
+    name: 'eleclub',
     component: musicClubVue,
-    alias: '/musicclub',
-    meta: { title: '首页' }
+    alias: '/eleclub',
+    meta: { title: '音乐馆' }
   },
   {
     path: '/elevideo',
     name: 'ship',
     component: tiaoShiVue,
-    alias: '/musicclub',
-    meta: { title: '首页' }
+    alias: '/ship',
+    meta: { title: '调试电台' }
   },
+  // 推荐界面内容
+  {
+    path: '/MvDetail',
+    name: 'MvDetail',
+    component: mvBoFangVue,
+    alias: '/MvDetail',
+    meta: { title: 'MV' }
+  },
+  // 搜索板块内容
   {
     path: '/artistDetail',
     name: 'artistDetail',
     component: artistDetailVue,
     alias: '/artistDetail',
-    meta: { title: '艺术家详情' }
+    meta: { title: '歌手详情' }
   },
 ]
 const router = createRouter({
