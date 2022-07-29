@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import CommonLeftNav from './common-leftNav.vue'
-import CommonTopNav from './common-topNav.vue'
-import CommonBottomplayer from './common-bottomplayer.vue'
-import CommonMain from './common-main.vue'
-
+import CommonLeftNav from '@/components/common/common-leftNav.vue'
+import CommonTopNav from '@/components/common/common-topNav.vue'
+import CommonBottomplayer from '@/components/common/common-bottomplayer.vue'
+import CommonMain from '@/components/common/common-main.vue'
+import '@/assets/font_3541026_3h5dz7qeice/iconfont.css'
 </script>
 
 <template>
@@ -16,9 +16,9 @@ import CommonMain from './common-main.vue'
 <div class="right">
 <CommonTopNav />
 <CommonMain />
-</div>
-</div>
 <CommonBottomplayer class="bottom"/>
+</div>
+</div>
 
 </template>
 
@@ -28,17 +28,10 @@ body{
 }
 .panel{
   display: flex;
-  .leftpanel{
-    // position: relative;
+.leftpanel{
 width: 307.2px;
 height: 100vh;
-// .left{
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-// }
-  }
-}
+}}
 .bottom{
   position: fixed;
 bottom: 0;

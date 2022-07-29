@@ -1,10 +1,36 @@
 * {
   margin: 0;
   padding: 0;
-}
-
-body {
   box-sizing: border-box;
+  // 取消双击字体选中
+  -moz-user-select: none;
+  /*火狐*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -ms-user-select: none;
+  /*IE10*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  user-select: none;
+
+  color: #334055;
+
+  .router-link {
+    text-decoration: none !important;
+  }
+
+  .router-link-active {
+    text-decoration: none !important;
+  }
+
+  a {
+    text-decoration: none !important;
+
+  }
+
+  .el-scrollbar p:nth-child(1) {
+    border: 0;
+  }
 }
 
 // 清除浮动

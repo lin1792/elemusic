@@ -1,21 +1,30 @@
+<!-- eslint-disable prefer-const -->
 <script setup lang="ts">
-import '@/assets/font_3541026_rqeq4fvo72/iconfont.css'
+import useStore from '@/store/index'
+import { storeToRefs } from 'pinia'
+const { leftActive } = useStore()
+const { act } = storeToRefs(leftActive)
+const { useAct } = leftActive
+
 </script>
 
 <template>
-<div class="fr">
+<div class="main">
+   <h1>
+  饿了音乐
+</h1>
 <el-scrollbar class="text">
     <p class="fb">在线音乐</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-yinle"></i>&nbsp;音乐馆</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-shipin"></i>&nbsp;视频</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-diantai"></i>&nbsp;电台</p>
+    <router-link to="/elerecommond" ><p :class="'scrollbar-demo-item'+' lianjie'+(act===1?' active':'')" @click="useAct(1)"><i class="iconfont icon-tuijianma"></i>&nbsp;推荐</p></router-link>
+    <router-link to="/eleclub"><p :class="'scrollbar-demo-item'+' lianjie'+(act===2?' active':'')" @click="useAct(2)"><i class="iconfont icon-yinle"></i>&nbsp;音乐馆</p></router-link>
+    <router-link to="/elevideo"><p :class="'scrollbar-demo-item'+' lianjie'+(act===3?' active':'')" @click="useAct(3)"><i class="iconfont icon-shipin"></i>&nbsp;视频</p></router-link>
+    <router-link to="/elediantai"><p :class="'scrollbar-demo-item'+' lianjie'+(act===4?' active':'')" @click="useAct(4)"><i class="iconfont icon-diantai"></i>&nbsp;电台</p></router-link>
     <p class="scrollbar-demo-item ct"></p>
     <p class="fb">我的音乐</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xihuan-xianxing"></i>&nbsp;我喜欢</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-bendi1x"></i>&nbsp;本地歌曲</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-xiazai-wenjianxiazai-07"></i>&nbsp;下载歌曲</p>
-    <p class="scrollbar-demo-item lianjie"><i class="iconfont icon-zuijinyuedu"></i>&nbsp;最近播放</p>
+    <router-link to="/mylove"><p :class="'scrollbar-demo-item'+' lianjie'+(act===5?' active':'')" @click="useAct(5)"><i class="iconfont icon-xihuan-xianxing"></i>&nbsp;我喜欢</p></router-link>
+    <router-link to="/local"><p :class="'scrollbar-demo-item'+' lianjie'+(act===6?' active':'')" @click="useAct(6)"><i class="iconfont icon-bendi1x"></i>&nbsp;本地歌曲</p></router-link>
+    <router-link to="/download"><p :class="'scrollbar-demo-item'+' lianjie'+(act===7?' active':'')" @click="useAct(7)"><i class="iconfont icon-xiazai-wenjianxiazai-07"></i>&nbsp;下载歌曲</p></router-link>
+    <router-link to="/recentplay"><p :class="'scrollbar-demo-item'+' lianjie'+(act===8?' active':'')" @click="useAct(8)"><i class="iconfont icon-zuijinyuedu"></i>&nbsp;最近播放</p></router-link>
     <p class="scrollbar-demo-item end"></p>
   </el-scrollbar>
 </div>
@@ -25,15 +34,38 @@ import '@/assets/font_3541026_rqeq4fvo72/iconfont.css'
 @bottomcolor:#334055;
 @hovercolor:#409eff;
 @mockcolor:#ecf5ff;
-.fr{
+.main{
+  position: relative;
   width: 307.2px;
 height: 100vh;
 padding-left: 20px;
 background-color: #f9fafb;
 overflow: hidden;
+h1{
+  position: absolute;
+  top: 0;
+  left: 20px;
+  // width: 116px;
+width: 300px;
+  height:  50px;
+  margin-top: 15px;
+  padding-left: 100px;
+  // background-color: #409eff;
+background-image: url(@/assets/logo.png);
+background-size: contain;
+background-repeat:no-repeat;
+font-size: 45px;
+line-height: 45px;
+color: #0091ea;
+}
 .text{
 margin-top: 76.78px;
 width: 93%;
+.fb{
+  border: 0;
+  background:none;
+  color: @bottomcolor;
+}
 .end{
   height: 65px;
 }
@@ -60,6 +92,10 @@ width: 93%;
 .lianjie,.iconfont{
   font-size: 25px;
 }
+.active{
+    background-color: @mockcolor;
+  color: @hovercolor;
+  }
 .lianjie:hover{
   background-color: @mockcolor;
   color: @hovercolor;
