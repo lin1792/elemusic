@@ -10,7 +10,7 @@ import { Tuijian } from '@/assets/defaultBoFang'
 import { Banner } from '@/models/banner'
 import { useMusicStore } from '@/store/music'
 const { search, player } = useStore()
-const { hotData } = storeToRefs(search)
+const { hotData, searchkeyword } = storeToRefs(search)
 const { getPersonalizedMv } = useVideoStore()
 const { PersonalizedMv } = toRefs(useVideoStore())
 const { getBanners } = useBannerStore()
@@ -27,6 +27,10 @@ const clickBanner = (banner:Banner) => {
   if (banner.targetType === 1) {
     play(banner.targetId)
   }
+}
+// 搜索排行版内容
+const searchTop = (topText:string) => {
+  searchkeyword.value = topText
 }
 // 推荐专属歌单
 const { personalized } = toRefs(useMusicStore())
@@ -58,8 +62,8 @@ onMounted(async () => {
  </div>
  <!-- 推荐右模块布局 -->
  <div class="right">
-  <div class="title">排行榜</div>
-  <div v-for="(item,index) in hotData.slice(0,4)" :key="index" class="info">
+  <div class="title">搜索排行榜</div>
+  <div v-for="(item,index) in hotData.slice(0,4)" :key="index" class="info" @click="searchTop(item.searchWord)">
     <span>{{index + 1}}、{{item.searchWord}}</span>
     <span class="num">{{item.score.numberFormat()}}</span>
   </div>
@@ -71,11 +75,13 @@ onMounted(async () => {
     <div class="header">你的专属歌单<span class="iconfont icon-gengduo"></span></div>
     <div class="body">
       <span class="xunhuan" v-for="item in personalized" :key="item.id">
-      <span class="img">
+      <router-link :to="{path:'/playlistDetail',query:{id:item.id}}">
+        <span class="img">
         <img :src="item.picUrl" alt="">
         <span class="num iconfont icon-24gf-headphones">{{item.playCount.numberFormat()}}</span>
       <span class="cover iconfont icon-24gl-play"></span>
       </span>
+      </router-link>
       <p>{{item.name}}</p></span>
     </div>
   </div>
@@ -297,6 +303,7 @@ p{
   // background-color: #d3dce6;
 img{
   width: 20.135%;
+  height: 20.135%;
   border-radius:5px;
 }
 .info{
@@ -306,10 +313,22 @@ img{
   margin: 0 7px 0;
   .music-name{
     margin: 2px;
+      // 文字溢出隐藏
+    overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+       -webkit-box-orient: vertical;
   }
   .human-name{
       margin: 2px;
       color: #898888;
+      // 文字溢出隐藏
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+       -webkit-box-orient: vertical;
   }
 }
 }

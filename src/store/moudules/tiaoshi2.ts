@@ -21,6 +21,7 @@ export const tiaoshi2Store = defineStore({
   actions: {
     tiaoshi() {
       useTiaoshi()
-    }
+    },
+
   }
 })

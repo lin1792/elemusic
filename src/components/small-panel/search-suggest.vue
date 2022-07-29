@@ -35,7 +35,7 @@ const getTitle = (name: string) => {
 <!-- 歌手 -->
 <div  v-if="order === 'artists'">
   <div class="geshou" v-for="item in suggestData.artists" :key="item.id">
-    <router-link to="/artistDetail"><div  class="main" :title="item.name"><img :src="item.img1v1Url" alt="" ><span>{{item.name}}</span></div></router-link>
+    <router-link :to="{path:'/artistDetail',query:{id:item.id}}"><div  class="main" :title="item.name"><img :src="item.img1v1Url" alt="" ><span>{{item.name}}</span></div></router-link>
   </div>
 </div>
   <!-- 专辑 -->

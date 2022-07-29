@@ -5,14 +5,14 @@ import { Song } from '@/models/Song'
 import { PersonalizedMv, Personalized, PersonalizedNewSong } from '@/models/personalized'
 import type { MvUrl } from '@/models/mv'
 import type { Banner } from '@/models/banner'
+import { ArtistDetail } from '@/models/artistDetail'
+import { PlayListDetail } from '@/models/playList'
 
 
 // 用来调试接口
 export async function useTiaoshi() {
-  const banners = await http.get('/personalized/newsong')
+  const banners = await http.get('/playlist/track/all?id=104150749')
 
-  const { result } = await http.get('/search/suggest?keywords=许嵩')
-  const { songs } = await http.get('/song/detail?ids=347230')
   console.log(banners)
   // console.log(data[0].content)
 }
@@ -59,6 +59,8 @@ export async function useBanner() {
 // 推荐歌单
 export async function usePersonalized() {
   const { result } = await http.get<{ result: Personalized[] }>('/personalized?limit=10')
+  console.log(result)
+
   return result
 }
 
@@ -66,4 +68,22 @@ export async function usePersonalized() {
 export async function usePersonalizedNewsong() {
   const { result } = await http.get<{ result: PersonalizedNewSong[] }>('/personalized/newsong')
   return result
+}
+
+// 歌手信息
+export async function useArtistDetail(id: number) {
+  const { data } = await http.get<{ data: ArtistDetail }>('artist/detail', { id })
+  return data
+}
+
+// 获取歌单详情
+export async function usePlaylistDetail(id: number) {
+  const { playlist } = await http.get<{ playlist: PlayListDetail }>('/playlist/detail', { id })
+  return playlist
+}
+
+// 获取歌单所有歌曲
+export async function usePlaylistTrackAll(id: number) {
+  const { songs } = await http.get<{ songs: Song[] }>('/playlist/track/all', { id })
+  return songs
 }

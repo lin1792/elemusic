@@ -4,6 +4,7 @@ import musicRecommendVue from '@/components/body/music-recommend.vue'
 import tiaoShiVue from '@/components/body/tiao-shi.vue'
 import artistDetailVue from '@/components/body/artist-Detail.vue'
 import mvBoFangVue from '@/components/body/mvBoFang.vue'
+import playlistDetailVue from '@/components/body/playlist-Detail.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // 左侧导航栏大板块内容
@@ -40,13 +41,20 @@ const routes: Array<RouteRecordRaw> = [
     alias: '/MvDetail',
     meta: { title: 'MV' }
   },
-  // 搜索板块内容
+  // 详情内容
   {
     path: '/artistDetail',
     name: 'artistDetail',
     component: artistDetailVue,
     alias: '/artistDetail',
     meta: { title: '歌手详情' }
+  },
+  {
+    path: '/playlistDetail',
+    name: 'playlistDetail',
+    component: playlistDetailVue,
+    alias: '/playlistDetail',
+    meta: { title: '歌单详情' }
   },
 ]
 const router = createRouter({

@@ -1,6 +1,6 @@
 <template>
   <div v-for="item in list" :key="item.id" class="about">
-    <el-button @click="getWangyi">获取热门歌单</el-button>
+    <el-button @click="getWangyi ">获取热门歌单</el-button>
     1233
   </div>
   123

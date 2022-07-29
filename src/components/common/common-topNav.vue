@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { Search } from '@element-plus/icons-vue'
+// import { useRoute } from 'vue-router'
 import useStore from '@/store/index'
 import { storeToRefs } from 'pinia'
 import SearchSuggest from '../small-panel/search-suggest.vue'
+import router from '@/router'
+// const router = useRoute()
+
 const clickHot = (text: string) => {
   searchkeyword.value = text
 }
@@ -13,13 +17,21 @@ const { search } = useStore()
 const { hotsearch } = search
 const { hotData, searchkeyword, showHot } = storeToRefs(search)
 hotsearch()
+
+// 前进后退跳转功能
+const back = () => {
+  router.go(-1)
+}
+const prev = () => {
+  router.go(1)
+}
 </script>
 
 <template>
 <div class="main">
   <div class="left">
-    <span class="iconfont icon-shangyige"></span>
-    <span class="iconfont icon-xiayige"></span>
+    <span class="iconfont icon-shangyige" @click="back"></span>
+    <span class="iconfont icon-xiayige" @click="prev"></span>
     <!-- 下拉组件 -->
   <el-row class="block-col-2">
     <el-col :span="8">

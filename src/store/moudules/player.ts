@@ -6,7 +6,7 @@ import { onMounted, onUnmounted, watch } from 'vue'
 import { useSongUrl, useDetail } from '@/utils/api'
 import { SongUrl } from '@/models/SongUrl'
 import { Song } from '@/models/Song'
-import { id } from 'element-plus/es/locale'
+// import { id } from 'element-plus/es/locale'
 const PLAYERVOLUME = { volume: 'PLAYER-VOLUME' }
 export const usePlayerStore = defineStore({
   id: 'palyer',

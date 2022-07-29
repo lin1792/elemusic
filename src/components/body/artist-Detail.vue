@@ -2,15 +2,28 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <!-- eslint-disable vue/no-parsing-error -->
 <script setup lang="ts">
-import { ref } from 'vue'
-import type { TabsPaneContext } from 'element-plus'
+import { ref, onMounted } from 'vue'
+// import type { TabsPaneContext } from 'element-plus'
+import { useRoute } from 'vue-router'
+import { ArtistDetail } from '@/models/artistDetail'
+import { useArtistDetail } from '@/utils/api'
+const activeName = ref('second')
 
-const activeName = ref('first')
+/*
+ * const handleClick = (tab: TabsPaneContext, event: Event) => {
+ *   console.log(tab, event)
+ * }
+ */
+const router = useRoute()
+const id = Number(router.query.id)
 
-const handleClick = (tab: TabsPaneContext, event: Event) => {
-  console.log(tab, event)
-}
+// 使用用户信息.....接口请求不到先不写了
+const artistDetail = ref<ArtistDetail>()
+onMounted( async() => {
+  artistDetail.value = await useArtistDetail(id)
+  console.log(artistDetail)
 
+})
 </script>
 <template>
   <div class="container">
@@ -35,7 +48,8 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
       </el-header>
       <!-- 菜单 -->
       <div class="menu">
-        <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
+        <!-- <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick"> -->
+        <el-tabs v-model="activeName" class="demo-tabs">
 
     <el-tab-pane label="精选" name="first" class="men menu1">
       <div class="li list1">精选内容暂未开发</div>
@@ -67,7 +81,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
           <div class="song">
             <div class="left">
               <div class="love iconfont icon-xihuan-xianxing"></div>
-              <div class="text">有何不可</div>
+              <div class="text">牛牛牛牛虎虎虎</div>
             </div>
             <div class="right">
               <div class="play iconfont icon-24gl-play"></div>
@@ -76,8 +90,8 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
               <div class="more iconfont icon-gengduo4"></div>
             </div>
           </div>
-          <div class="album">自定义</div>
-          <div class="time"><div>00:00/00:00</div></div>
+          <div class="album"><span class="name">吱吱吱吱</span></div>
+          <div class="time"><div>00:00</div></div>
         </div>
         </p>
   </el-scrollbar>
@@ -254,7 +268,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
         }
       }
       // 内容主体
-      .frame{
+       .frame{
         // background-color:blue;
         height: 46.2vh;
         .content{
@@ -273,6 +287,13 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
           display: flex;
           .love{
             padding-right: 5px;
+          }
+          .text{
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
           }
         }
         .left div:hover{
@@ -294,11 +315,19 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
         }
         }
         .album{
+          display: flex;
           flex: 2;
         color: @bottomcolor;
-        margin-right: 28px;
+        margin-right: 5px;
+        .name{
+           overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
         }
-        .album:hover{
+        }
+        .album .name:hover{
           cursor: pointer;
           color:@hovercolor;
         }
@@ -306,7 +335,7 @@ const handleClick = (tab: TabsPaneContext, event: Event) => {
           display: flex;
           flex: 1;
           justify-content: end;
-          margin-right: 15px;
+          margin-right: 35px;
         color: @bottomcolor;
         }
       }
