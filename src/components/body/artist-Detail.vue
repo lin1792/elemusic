@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/no-parsing-error -->
 <!-- eslint-disable vue/no-parsing-error -->
 <!-- eslint-disable vue/no-parsing-error -->
+<!-- eslint-disable vue/no-parsing-error -->
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 // import type { TabsPaneContext } from 'element-plus'

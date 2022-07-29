@@ -15,6 +15,7 @@ module.exports = {
     '@typescript-eslint'
   ],
   'rules': {
+    'vue/no-parsing-error': [2, { 'x-invalid-end-tag': false }],
     // --以下是Possible Errors JS代码中的逻辑错误相关
     'no-extra-parens': 'error', // 禁止不必要的括号
     // "no-console": "error" // 不允许打印console.log
