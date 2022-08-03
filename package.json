@@ -12,6 +12,7 @@
     "element-plus": "^2.2.9",
     "pinia": "^2.0.0-rc.10",
     "require": "^2.4.20",
+    "swiper": "^8.3.2",
     "ts-loader": "^9.3.1",
     "vue": "^3.2.25",
     "vue-router": "^4.1.2"

@@ -10,10 +10,16 @@ import { PlayListDetail } from '@/models/playList'
 
 
 // 用来调试接口
-export async function useTiaoshi() {
-  const banners = await http.get('/playlist/track/all?id=104150749')
+export async function useTiaoshi(phone: string, captcha: string, password: string) {
+  const res = await http.get<{
+    code: number,
+    cookie: string,
+    token: string,
+  }>('login/cellphone?phone13599644583&captcha=880867&password=qwe', { phone, captcha, password })
 
-  console.log(banners)
+
+  console.log(res)
+  return res
   // console.log(data[0].content)
 }
 
@@ -86,4 +92,23 @@ export async function usePlaylistDetail(id: number) {
 export async function usePlaylistTrackAll(id: number) {
   const { songs } = await http.get<{ songs: Song[] }>('/playlist/track/all', { id })
   return songs
+}
+// 手机登录
+export async function useLoginfunction(phone: string, captcha: string, password: string) {
+  return await http.get<{
+    code: number,
+    cookie: string,
+    token: string,
+  }>('login/cellphone', { phone, captcha, password })
+}
+
+export async function useYanZhen(phone: string, captcha: string) {
+  return await http.get('/captcha/verify', { phone, captcha })
+}
+export async function useLoginStatus() {
+  return await http.get('login/status')
+}
+// 验证码登录获取验证码
+export async function useYanZhenMa(phone: string) {
+  await http.get(' /captcha/sent', { phone })
 }
