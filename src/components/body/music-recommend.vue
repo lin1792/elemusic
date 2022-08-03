@@ -1,5 +1,14 @@
 <!-- eslint-disable no-duplicate-imports -->
 <script setup lang="ts">
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+// Import Swiper styles
+import 'swiper/css'
+import 'swiper/css/navigation'
+import 'swiper/css/pagination'
+import 'swiper/css/scrollbar'
+
 import useStore from '@/store/index'
 import { storeToRefs } from 'pinia'
 import { toRefs, onMounted } from 'vue'
@@ -9,8 +18,8 @@ import { useBannerStore } from '@/store/banner'
 import { Tuijian } from '@/assets/defaultBoFang'
 import { Banner } from '@/models/banner'
 import { useMusicStore } from '@/store/music'
-const { search, player } = useStore()
-const { hotData, searchkeyword } = storeToRefs(search)
+const { search, player, useswiper } = useStore()
+const { searchkeyword } = storeToRefs(search)
 const { getPersonalizedMv } = useVideoStore()
 const { PersonalizedMv } = toRefs(useVideoStore())
 const { getBanners } = useBannerStore()
@@ -44,6 +53,14 @@ const { getPersonalizedNewSong } = useMusicStore()
 onMounted(async () => {
   await getPersonalizedNewSong()
 })
+// swiper轮播图内容
+const { bannerNum } = storeToRefs(useswiper)
+onMounted(window.onresize = () => {
+  console.log(document.body.clientWidth)
+  if (document.body.clientWidth <= 990) { bannerNum.value = 1 } else if (document.body.clientWidth <= 1200) { bannerNum.value = 2 } else if (document.body.clientWidth <= 1500) { bannerNum.value = 3 } else {
+    bannerNum.value = 4
+  }
+})
 </script>
 
 <template>
@@ -53,21 +70,23 @@ onMounted(async () => {
      <div class="tuijian">
        <div class="header">推荐</div>
 <div class="body">
-  <!-- 推荐左布局 -->
+  <!-- 推荐左布局 -->s
  <div class="left">
-   <el-carousel :interval="4000" type="card" height="204px">
-    <el-carousel-item class="el-carousel-item" v-for="item in banners" :key="item.bannerId"><img :src="item.imageUrl || Tuijian" alt="" @click="clickBanner(item)">
-    </el-carousel-item>
-  </el-carousel>
+  <swiper
+    :slides-per-view="bannerNum"
+    :space-between="20"
+  >
+    <swiper-slide  v-for="item in banners" :key="item.bannerId"><img :src="item.imageUrl || Tuijian" alt="" @click="clickBanner(item)"></swiper-slide>
+  </swiper>
  </div>
  <!-- 推荐右模块布局 -->
- <div class="right">
+ <!-- <div class="right">
   <div class="title">搜索排行榜</div>
   <div v-for="(item,index) in hotData.slice(0,4)" :key="index" class="info" @click="searchTop(item.searchWord)">
     <span>{{index + 1}}、{{item.searchWord}}</span>
     <span class="num">{{item.score.numberFormat()}}</span>
   </div>
- </div>
+ </div> -->
 </div>
      </div>
   <!-- 你的专属歌单 -->
@@ -153,54 +172,85 @@ margin: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 220px;
+  height: 180px;
   width: 100%;
   .left{
-    width: 70%;
+    width: 100%;
 img{
   width: 100%;
-}
-.el-carousel__item:nth-child(n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(n+1) {
-  background-color: #d3dce6;
+  border-radius: 20px;
 }
   }
-  .right{
-    width: 27%;
-    height: 90%;
-    background-color: #109ff85c;
-    border-radius: 10px;
-    line-height: 100%;
-    padding: 10px 10px;
-    .title{
-      font-size: 25px;
-      font-weight: 500;
-      padding-bottom: 5px;
-    }
-    .info{
-      display: flex;
-      justify-content: space-between;
-      font-size: 20px;
-      padding: 5px 5px;
-      border-radius: 10px;
-      transition: all 0.3s linear;
-      background-color: #40a0ff25;
-    }
-    .info:hover {
-      cursor: pointer;
-      background-color: #40a0ffc8;
-      font-size:21px ;
-    }
-  }
+  // .right{
+  //   @media screen and (max-width:1500px){
+  //     display: none;
+  //   }
+  //   width: 27%;
+  //   height: 90%;
+  //   background-color: #109ff85c;
+  //   border-radius: 10px;
+  //   line-height: 100%;
+  //   padding: 10px 10px;
+  //   .title{
+  //     font-size: 25px;
+  //     font-weight: 500;
+  //     padding-bottom: 5px;
+  //   }
+  //   .info{
+  //     display: flex;
+  //     justify-content: space-between;
+  //     font-size: 20px;
+  //     padding: 5px 5px;
+  //     border-radius: 10px;
+  //     transition: all 0.3s linear;
+  //     background-color: #40a0ff25;
+  //   }
+  //   .info:hover {
+  //     cursor: pointer;
+  //     background-color: #40a0ffc8;
+  //     font-size:21px ;
+  //   }
+  // }
 }
 }
 
 // 你的专属歌单
 .zhuangshu{
   .body{
+    @media only screen and (max-width:1600px){
+      justify-content: start;
+      flex-wrap: wrap;
+      height: 450px;
+      .xunhuan{
+        width: 190px !important;
+        margin-right: 10px;
+      &:nth-child(-n+5){
+        margin-bottom: 10px;
+      }
+      .img{
+        height: 190px !important;
+      }
+      }
+    }
+    @media only screen and (max-width: 1420px){
+      height: 400px;
+      .xunhuan{
+        width: 160px !important;
+      .img{
+        height: 160px !important;
+      }
+      }
+      }
+       @media only screen and (max-width: 1280px){
+      height: 270px;
+      .xunhuan{
+        width: 100px !important;
+      .img{
+        height: 100px !important;
+      }
+      }
+       }
+
     display: flex;
     justify-content: space-between;
     height: 160px;
@@ -224,6 +274,7 @@ img{
         overflow: hidden;
         img{
           width: 100%;
+          height: 100%;
         }
         .num{
         flex-direction: row;
@@ -342,6 +393,9 @@ img{
 // 推荐MV
 .MV{
   .body{
+     @media only screen and (max-width: 1280px){
+      height: 270px;
+     }
     height: 250px;
     // background-color: pink;
     .el-row {

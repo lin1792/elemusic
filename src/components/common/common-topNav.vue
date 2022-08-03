@@ -5,6 +5,7 @@ import useStore from '@/store/index'
 import { storeToRefs } from 'pinia'
 import SearchSuggest from '../small-panel/search-suggest.vue'
 import router from '@/router'
+import UserLogin from '../small-panel/user-login.vue'
 // const router = useRoute()
 
 const clickHot = (text: string) => {
@@ -13,7 +14,7 @@ const clickHot = (text: string) => {
 const clearinput = () => {
   searchkeyword.value = ''
 }
-const { search } = useStore()
+const { search, login } = useStore()
 const { hotsearch } = search
 const { hotData, searchkeyword, showHot } = storeToRefs(search)
 hotsearch()
@@ -24,6 +25,12 @@ const back = () => {
 }
 const prev = () => {
   router.go(1)
+}
+
+// 登录操作
+const { kaiguan } = storeToRefs(login)
+const uselogin = () => {
+  kaiguan.value = !kaiguan.value
 }
 </script>
 
@@ -67,10 +74,11 @@ const prev = () => {
   </el-row>
   </div>
   <div class="right">
-    <span class="login"><span class="iconfont icon-denglu"></span> 点击登录</span>
+    <span class="login"><span class="iconfont icon-denglu"></span><span class="name" @click="uselogin">点击登录</span></span>
     <span class="mail iconfont icon-youjian" style="font-weight: 600;font-size: 20px;"></span>
     <span class="skin iconfont icon-pifu"></span>
     <span class="meun iconfont icon-liebiao"></span>
+<UserLogin v-if="kaiguan" class="loginPop" />
   </div>
 </div>
 </template>
@@ -123,6 +131,7 @@ height: 40px;
 }
 }
 .right{
+  position: relative;
   display: flex;
   justify-content: right;
   .icon-denglu{
@@ -146,6 +155,21 @@ height: 40px;
       font-weight: 600;
       font-size: 27px;
     }
+    .name{
+      width: 100px;
+      font-size: 15px;
+      font-weight: 700;
+    }
+  }
+  .loginPop{
+position: absolute;
+top: 100px;
+right: 635px;
+width: 500px;
+height: 300px;
+background-color:@hovercolor;
+border-radius: 50px;
+z-index: 999;
   }
 }
 }

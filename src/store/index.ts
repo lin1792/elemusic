@@ -4,6 +4,8 @@ import { useSeachStore } from '@/store/moudules/search'
 import { usePlayerStore, userPlayerInit } from './moudules/player'
 import { useActiveStore } from './moudules/left'
 import { useVideoStore } from './video'
+import { useLogin } from './moudules/login'
+import { useSwiper } from './moudules/swiper'
 
 export default function useStore() {
   return {
@@ -13,5 +15,7 @@ export default function useStore() {
     playerInit: userPlayerInit(),
     leftActive: useActiveStore(),
     video: useVideoStore(),
+    login: useLogin(),
+    useswiper: useSwiper()
   }
 }
