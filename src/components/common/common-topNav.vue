@@ -6,8 +6,8 @@ import { storeToRefs } from 'pinia'
 import SearchSuggest from '../small-panel/search-suggest.vue'
 import router from '@/router'
 import UserLogin from '../small-panel/user-login.vue'
+import { append } from 'dom7'
 // const router = useRoute()
-
 const clickHot = (text: string) => {
   searchkeyword.value = text
 }
@@ -78,7 +78,9 @@ const uselogin = () => {
     <span class="mail iconfont icon-youjian" style="font-weight: 600;font-size: 20px;"></span>
     <span class="skin iconfont icon-pifu"></span>
     <span class="meun iconfont icon-liebiao"></span>
+<transition name="fade">
 <UserLogin v-if="kaiguan" class="loginPop" />
+</transition>
   </div>
 </div>
 </template>
@@ -87,6 +89,15 @@ const uselogin = () => {
 @bottomcolor:#334055;
 @hovercolor:#409eff;
 @mockcolor:#ecf5ff;
+.fade-leave {
+    opacity: 1
+}
+.fade-leave-active {
+    transition: all 1s;
+}
+.fade-leave-to {
+    opacity: 0
+}
 .main{
   display: flex;
   justify-content: space-between;

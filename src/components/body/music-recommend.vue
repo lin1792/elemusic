@@ -70,7 +70,7 @@ onMounted(window.onresize = () => {
      <div class="tuijian">
        <div class="header">推荐</div>
 <div class="body">
-  <!-- 推荐左布局 -->s
+  <!-- 推荐左布局 -->
  <div class="left">
   <swiper
     :slides-per-view="bannerNum"
