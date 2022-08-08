@@ -5,10 +5,12 @@ import { useFormatDuring } from '@/utils/number'
 import useStore from '@/store/index'
 import { defaultboFang } from '@/assets/defaultBoFang'
 import { storeToRefs } from 'pinia'
-
+import { ref } from 'vue'
 const { player } = useStore()
 const { loopType, isPause, volume, duration, currentTime, song, playListCount, playList, choose } = storeToRefs(player)
 const { toggleLoop, next, prev, togglePlay, setVolume, onSliderInput, onSliderChange, play, clearPlayList } = player
+
+// }
 </script>
 
 <template>
@@ -76,7 +78,7 @@ const { toggleLoop, next, prev, togglePlay, setVolume, onSliderInput, onSliderCh
       <div class="number">{{playListCount}}</div></div>
         </span>
         <template #dropdown>
-          <div class="scrollbar-title">播放列表</div>
+          <div class="scrollbar-title" >播放列表</div>
           <div class="scrollbar-total"><span>共{{playListCount}}首歌曲</span><span class="iconfont icon-shanchu qingkong" @click="clearPlayList">清空</span></div>
           <el-dropdown-menu style="width: 400px;height: 600px;">
  <el-scrollbar height="590px">
@@ -321,7 +323,6 @@ flex-direction: row;
   background-color: #ecf5ff;
   span{
   color: #409eff !important;
-
   }
   }
 </style>

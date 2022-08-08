@@ -1,29 +1,18 @@
-<!-- eslint-disable vue/no-parsing-error -->
-<!-- eslint-disable vue/no-parsing-error -->
-<!-- eslint-disable vue/no-parsing-error -->
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useFormatDuring } from '@/utils/number'
 
-/*
- * import type { TabsPaneContext } from 'element-plus'
- * import { first } from 'lodash'
- */
 import { useRoute } from 'vue-router'
 import { PlayListDetail } from '@/models/playList'
 import { Song } from '@/models/Song'
 import { usePlaylistDetail, usePlaylistTrackAll } from '@/utils/api'
 import useStore from '@/store/index'
-// import { id } from 'element-plus/es/locale'
+
 const activeName = ref('first')
 const { player } = useStore()
 const { play, pushPlayList } = player
 
-/*
- * const handleClick = (tab: TabsPaneContext, event: Event) => {
- *   console.log(tab, event)
- * }
- */
+
 const router = useRoute()
 const id = Number(router.query.id)
 // 使用歌单信息

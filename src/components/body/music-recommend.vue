@@ -37,6 +37,7 @@ const clickBanner = (banner:Banner) => {
     play(banner.targetId)
   }
 }
+
 // 搜索排行版内容
 const searchTop = (topText:string) => {
   searchkeyword.value = topText
@@ -70,7 +71,7 @@ onMounted(window.onresize = () => {
      <div class="tuijian">
        <div class="header">推荐</div>
 <div class="body">
-  <!-- 推荐左布局 -->s
+  <!-- 推荐左布局 -->
  <div class="left">
   <swiper
     :slides-per-view="bannerNum"
@@ -79,14 +80,6 @@ onMounted(window.onresize = () => {
     <swiper-slide  v-for="item in banners" :key="item.bannerId"><img :src="item.imageUrl || Tuijian" alt="" @click="clickBanner(item)"></swiper-slide>
   </swiper>
  </div>
- <!-- 推荐右模块布局 -->
- <!-- <div class="right">
-  <div class="title">搜索排行榜</div>
-  <div v-for="(item,index) in hotData.slice(0,4)" :key="index" class="info" @click="searchTop(item.searchWord)">
-    <span>{{index + 1}}、{{item.searchWord}}</span>
-    <span class="num">{{item.score.numberFormat()}}</span>
-  </div>
- </div> -->
 </div>
      </div>
   <!-- 你的专属歌单 -->
@@ -175,85 +168,62 @@ margin: 10px 0;
   height: 180px;
   width: 100%;
   .left{
+    position: relative;
     width: 100%;
 img{
   width: 100%;
   border-radius: 20px;
 }
+
   }
-  // .right{
-  //   @media screen and (max-width:1500px){
-  //     display: none;
-  //   }
-  //   width: 27%;
-  //   height: 90%;
-  //   background-color: #109ff85c;
-  //   border-radius: 10px;
-  //   line-height: 100%;
-  //   padding: 10px 10px;
-  //   .title{
-  //     font-size: 25px;
-  //     font-weight: 500;
-  //     padding-bottom: 5px;
-  //   }
-  //   .info{
-  //     display: flex;
-  //     justify-content: space-between;
-  //     font-size: 20px;
-  //     padding: 5px 5px;
-  //     border-radius: 10px;
-  //     transition: all 0.3s linear;
-  //     background-color: #40a0ff25;
-  //   }
-  //   .info:hover {
-  //     cursor: pointer;
-  //     background-color: #40a0ffc8;
-  //     font-size:21px ;
-  //   }
-  // }
 }
 }
 
 // 你的专属歌单
 .zhuangshu{
   .body{
-    @media only screen and (max-width:1600px){
-      justify-content: start;
-      flex-wrap: wrap;
-      height: 450px;
-      .xunhuan{
-        width: 190px !important;
-        margin-right: 10px;
-      &:nth-child(-n+5){
-        margin-bottom: 10px;
-      }
-      .img{
-        height: 190px !important;
-      }
-      }
-    }
-    @media only screen and (max-width: 1420px){
-      height: 400px;
-      .xunhuan{
-        width: 160px !important;
-      .img{
-        height: 160px !important;
-      }
-      }
-      }
-       @media only screen and (max-width: 1280px){
-      height: 270px;
-      .xunhuan{
-        width: 100px !important;
-      .img{
-        height: 100px !important;
-      }
-      }
-       }
+    // @media only screen and (max-width:1600px){
+    //   justify-content: start;
+    //   flex-wrap: wrap;
+    //   height: 450px;
+    //   .xunhuan{
+    //     width: 190px !important;
+    //     margin-right: 10px;
+    //   &:nth-child(-n+5){
+    //     margin-bottom: 10px;
+    //   }
+    //   .img{
+    //     height: 190px !important;
+    //   }
+    //   }
+    // }
+    // @media only screen and (max-width: 1420px){
+    //   height: 400px;
+    //   .xunhuan{
+    //     width: 160px !important;
+    //   .img{
+    //     height: 160px !important;
+    //   }
+    //   }
+    //   }
+    //    @media only screen and (max-width: 1280px){
+    //   height: 270px;
+    //   .xunhuan{
+    //     width: 100px !important;
+    //   .img{
+    //     height: 100px !important;
+    //   }
+    //   }
+    //    }
 
+//        @media only screen and (max-width: 700px){
+// width: 700px;
+//        }
     display: flex;
-    justify-content: space-between;
-    height: 160px;
+    justify-content: start;
+    flex-flow: wrap;
+    // height: 160px;
+    // margin-right: 15px;
     // background-color: pink;
     .xunhuan{
       position: relative;
@@ -262,6 +232,9 @@ img{
       justify-content: flex-end;
       position: relative;
       width: 136px;
+      height: 160px;
+      margin-right: 26px;
+      margin-bottom: 10px;
       // background-color: red;
       .img{
         position: absolute;
@@ -333,12 +306,14 @@ p{
   .el-row {
     display: flex;
     justify-content: space-between;
+    flex-flow: wrap;
     margin: 0;
 }
 .el-col {
-  max-width: 19%;
+  max-width: 307.92px;
   margin: 0;
   border-radius: 4px;
+  margin-bottom: 10px;
   // background-color: pink;
 }
 .el-col:nth-last-of-type(n+6){
