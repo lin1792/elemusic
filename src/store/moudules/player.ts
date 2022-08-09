@@ -11,6 +11,8 @@ const PLAYERVOLUME = { volume: 'PLAYER-VOLUME' }
 export const usePlayerStore = defineStore({
   id: 'palyer',
   state: () => ({
+    localsongurl: '',
+    localsong: {} as Song,
     // choose: 0,
     audio: new Audio(),
     loopType: 0, // 播放模式0单曲1列表2随机
@@ -56,6 +58,24 @@ export const usePlayerStore = defineStore({
     init() {
       this.audio.volume = this.volume / 100
     },
+    // 本地音乐播放
+    localplay(Url: string) {
+      if (Url === this.localsongurl) return
+      this.isPlaying = false
+      this.audio.src = Url
+      this.audio.play().then(res => {
+        // console.log(data.url)
+        this.isPlaying = true
+        this.localsongurl = Url
+        // this.songDetail()
+        this.isPause = false
+
+      })
+        .catch(res => {
+          console.log(res)
+
+        })
+    },
     // 播放
     async play(id: number) {
       if (id === this.id) return
@@ -70,12 +90,6 @@ export const usePlayerStore = defineStore({
         this.id = id
         this.songDetail()
         this.isPause = false
-
-        /*
-         * console.log(this.song)
-         * console.log(this.isPause)
-         */
-
       })
         .catch(res => {
           console.log(res)
@@ -159,7 +173,7 @@ export const usePlayerStore = defineStore({
     },
     // 播放、暂停
     togglePlay() {
-      if (!this.song.id) return
+      if (!this.song.id && !this.localsongurl) return
       this.isPlaying = !this.isPlaying
       if (!this.isPlaying) {
         this.audio.pause()

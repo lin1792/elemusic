@@ -32,6 +32,7 @@ declare module '@vue/runtime-core' {
     ElSlider: typeof import('element-plus/es')['ElSlider']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    LocalPlayer: typeof import('./src/components/body/local-player.vue')['default']
     MusicClub: typeof import('./src/components/body/music-club.vue')['default']
     MusicRecommend: typeof import('./src/components/body/music-recommend.vue')['default']
     MvBoFang: typeof import('./src/components/body/mvBoFang.vue')['default']

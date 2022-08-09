@@ -57,7 +57,7 @@ onMounted(async () => {
 // swiper轮播图内容
 const { bannerNum } = storeToRefs(useswiper)
 onMounted(window.onresize = () => {
-  console.log(document.body.clientWidth)
+  // console.log(document.body.clientWidth)
   if (document.body.clientWidth <= 990) { bannerNum.value = 1 } else if (document.body.clientWidth <= 1200) { bannerNum.value = 2 } else if (document.body.clientWidth <= 1500) { bannerNum.value = 3 } else {
     bannerNum.value = 4
   }

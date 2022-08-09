@@ -1,10 +1,12 @@
 <!-- eslint-disable prefer-const -->
 <script setup lang="ts">
 import useStore from '@/store/index'
+import { value } from 'dom7'
 import { storeToRefs } from 'pinia'
 const { leftActive } = useStore()
 const { act } = storeToRefs(leftActive)
 const { useAct } = leftActive
+act.value = Number(localStorage.getItem('someVarKey'))
 
 </script>
 

@@ -6,6 +6,8 @@ export const useActiveStore = defineStore({
   actions: {
     useAct(i: number) {
       this.act = i
+      const someVarName = this.act.toString()
+      localStorage.setItem('someVarKey', someVarName)
     }
   }
 })

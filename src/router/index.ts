@@ -5,6 +5,7 @@ import tiaoShiVue from '@/components/body/tiao-shi.vue'
 import artistDetailVue from '@/components/body/artist-Detail.vue'
 import mvBoFangVue from '@/components/body/mvBoFang.vue'
 import playlistDetailVue from '@/components/body/playlist-Detail.vue'
+import localPlayerVue from '@/components/body/local-player.vue'
 
 const routes: Array<RouteRecordRaw> = [
   // 左侧导航栏大板块内容
@@ -55,6 +56,13 @@ const routes: Array<RouteRecordRaw> = [
     component: playlistDetailVue,
     alias: '/playlistDetail',
     meta: { title: '歌单详情' }
+  },
+  {
+    path: '/local',
+    name: 'local',
+    component: localPlayerVue,
+    alias: '/local',
+    meta: { title: '本地歌曲' }
   },
 ]
 const router = createRouter({
